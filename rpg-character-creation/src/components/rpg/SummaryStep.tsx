@@ -1,0 +1,141 @@
+import { useAppContext } from "@/context/AppContext";
+import { speciesData } from "@/data/species";
+import { talentsData } from "@/data/talents";
+import { equipmentPackages, defaultEquipment } from "@/data/equipment";
+import { Download } from "lucide-react";
+
+/** Step 7: Summary + JSON export */
+export function SummaryStep() {
+  const { state, t, language } = useAppContext();
+  const ts = t.summary;
+
+  const species = speciesData.find((s) => s.id === state.speciesId);
+  const subtype = species?.subtypes?.find((s) => s.id === state.elfSubtypeId);
+  const pkg = equipmentPackages.find((p) => p.id === state.equipmentPackageId);
+
+  const getSpeciesName = () => {
+    if (!species) return "—";
+    const base = (t.species as any)[species.translationKey]?.name ?? species.translationKey;
+    if (subtype) return `${base} (${(t.species as any)[subtype.translationKey]?.name ?? subtype.translationKey})`;
+    return base;
+  };
+
+  const passive = subtype
+    ? (language === "pt-br" ? subtype.passivePtBr : subtype.passive)
+    : species
+    ? (language === "pt-br" ? species.passivePtBr : species.passive)
+    : "—";
+
+  const posTalents = state.positiveTalents.map((id) => talentsData.find((t) => t.id === id)!);
+  const negTalents = state.negativeTalents.map((id) => talentsData.find((t) => t.id === id)!);
+
+  const allEquipment = [
+    ...(pkg?.items.map((i) => (language === "pt-br" ? i.namePtBr : i.name)) ?? []),
+    ...defaultEquipment.map((i) => (language === "pt-br" ? i.namePtBr : i.name)),
+  ];
+
+  const exportData = {
+    name: state.name,
+    gender: state.gender,
+    weight: state.weight,
+    height: state.height,
+    age: state.age,
+    species: species?.id,
+    elfSubtype: subtype?.id ?? null,
+    attributes: state.attributes,
+    positiveTalents: state.positiveTalents,
+    negativeTalents: state.negativeTalents,
+    wealth: { copper: 200, silver: 100, gold: 50, platinum: 0 },
+    equipment: allEquipment,
+  };
+
+  const downloadJSON = () => {
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${state.name || "character"}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
+    <div className="rounded-lg border border-border bg-card p-4 space-y-2">
+      <h3 className="font-display text-sm text-primary">{title}</h3>
+      {children}
+    </div>
+  );
+
+  return (
+    <div className="animate-fade-in space-y-6">
+      <div>
+        <h2 className="font-display text-2xl text-gold-gradient">{ts.title}</h2>
+        <p className="mt-1 text-sm text-muted-foreground">{ts.desc}</p>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Section title={ts.characterInfo}>
+          <div className="grid grid-cols-2 gap-1 text-sm">
+            <span className="text-muted-foreground">{t.basics.name}:</span><span>{state.name || "—"}</span>
+            <span className="text-muted-foreground">{t.basics.gender}:</span><span>{state.gender || "—"}</span>
+            <span className="text-muted-foreground">{t.basics.weight}:</span><span>{state.weight ? (t.basics.weights as any)[state.weight] : "—"}</span>
+            <span className="text-muted-foreground">{t.basics.height}:</span><span>{state.height ? (t.basics.heights as any)[state.height] : "—"}</span>
+            <span className="text-muted-foreground">{t.basics.age}:</span><span>{state.age ? (t.basics.ages as any)[state.age] : "—"}</span>
+          </div>
+        </Section>
+
+        <Section title={ts.speciesInfo}>
+          <p className="text-sm">{getSpeciesName()}</p>
+          <p className="text-xs text-muted-foreground">{passive}</p>
+        </Section>
+
+        <Section title={ts.attributesInfo}>
+          <div className="grid grid-cols-2 gap-1 text-sm">
+            {Object.entries(state.attributes).map(([k, v]) => (
+              <div key={k} className="flex justify-between">
+                <span className="text-muted-foreground">{(t.attributes.names as any)[k] ?? k}</span>
+                <span className="font-bold text-primary">{v}</span>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        <Section title={ts.talentsInfo}>
+          <div className="space-y-1 text-sm">
+            {posTalents.map((tl) => (
+              <div key={tl.id} className="text-emerald">+ {language === "pt-br" ? tl.namePtBr : tl.name}</div>
+            ))}
+            {negTalents.map((tl) => (
+              <div key={tl.id} className="text-ruby">- {language === "pt-br" ? tl.namePtBr : tl.name}</div>
+            ))}
+          </div>
+        </Section>
+
+        <Section title={ts.wealthInfo}>
+          <div className="grid grid-cols-2 gap-1 text-sm">
+            <span className="text-muted-foreground">{t.wealth.copper}:</span><span>200</span>
+            <span className="text-muted-foreground">{t.wealth.silver}:</span><span>100</span>
+            <span className="text-muted-foreground">{t.wealth.gold}:</span><span>50</span>
+            <span className="text-muted-foreground">{t.wealth.platinum}:</span><span>0</span>
+          </div>
+        </Section>
+
+        <Section title={ts.equipmentInfo}>
+          <ul className="space-y-0.5 text-xs">
+            {allEquipment.map((item, i) => (
+              <li key={i}>• {item}</li>
+            ))}
+          </ul>
+        </Section>
+      </div>
+
+      <button
+        onClick={downloadJSON}
+        className="flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-display text-sm text-primary-foreground transition-all hover:opacity-90 glow-gold"
+      >
+        <Download className="h-4 w-4" />
+        {ts.download}
+      </button>
+    </div>
+  );
+}
