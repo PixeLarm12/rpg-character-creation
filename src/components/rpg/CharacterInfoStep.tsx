@@ -34,13 +34,12 @@ export function CharacterInfoStep() {
         {/* Gender */}
         <div className="space-y-1.5">
           <label className="text-sm font-display text-primary">{tb.gender}</label>
-          <input
-            type="text"
-            value={state.gender}
-            onChange={(e) => setField("gender", e.target.value)}
-            placeholder={tb.genderPlaceholder}
-            className={selectClass}
-          />
+          <select value={state.gender} onChange={(e) => setField("gender", e.target.value)} className={selectClass}>
+            <option value="">—</option>
+            {Object.entries(tb.genders).map(([k, v]) => (
+              <option key={k} value={k}>{v}</option>
+            ))}
+          </select>
         </div>
 
         {/* Weight */}
