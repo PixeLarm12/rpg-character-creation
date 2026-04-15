@@ -1,4 +1,6 @@
 import { useAppContext } from "@/context/AppContext";
+import { useRef } from "react";
+import { ExportSheet } from "../ExportSheet";
 import { speciesData } from "@/data/species";
 import { talentsData } from "@/data/talents";
 import { equipmentPackages, defaultEquipment } from "@/data/equipment";
@@ -11,6 +13,8 @@ export function SummaryStep() {
   const { state, t, language } = useAppContext();
   const ts = t.summary;
 
+  const exportRef = useRef<HTMLDivElement>(null);
+
   const species = speciesData.find((s) => s.id === state.speciesId);
   const subtype = species?.subtypes?.find((s) => s.id === state.elfSubtypeId);
   const pkg = equipmentPackages.find((p) => p.id === state.equipmentPackageId);
@@ -22,7 +26,7 @@ export function SummaryStep() {
     return base;
   };
 
-  const passive = subtype
+ const passive = subtype
     ? (language === "pt-br" ? subtype.passivePtBr : subtype.passive)
     : species
     ? (language === "pt-br" ? species.passivePtBr : species.passive)
@@ -45,8 +49,8 @@ export function SummaryStep() {
     species: species?.id,
     elfSubtype: subtype?.id ?? null,
     attributes: state.attributes,
-    positiveTalents: state.positiveTalents,
-    negativeTalents: state.negativeTalents,
+    positiveTalents: state.positiveTalents, 
+    negativeTalents: state.negativeTalents, 
     wealth: { copper: 200, silver: 100, gold: 50, platinum: 0 },
     equipment: allEquipment,
   };
@@ -61,12 +65,11 @@ export function SummaryStep() {
     URL.revokeObjectURL(url);
   };
 
-  // ✅ NOVO: gerar PDF
   const downloadPDF = async () => {
-    const element = document.getElementById("character-sheet");
-    if (!element) return;
+    if (!exportRef.current) return;
 
-    const canvas = await html2canvas(element, { scale: 2 });
+    const canvas = await html2canvas(exportRef.current, {scale: 2});
+
     const imgData = canvas.toDataURL("image/png");
 
     const pdf = new jsPDF({
@@ -92,7 +95,7 @@ export function SummaryStep() {
   return (
     <div className="animate-fade-in space-y-6">
 
-      {/* ✅ ENVOLVER COM ID */}
+      {/* UI normal */}
       <div id="character-sheet">
         <div>
           <h2 className="font-display text-2xl text-gold-gradient">{ts.title}</h2>
@@ -157,6 +160,13 @@ export function SummaryStep() {
               ))}
             </ul>
           </Section>
+        </div>
+      </div>
+
+      {/* EXPORT */}
+      <div style={{ position: "absolute", left: "-9999px", top: 0 }}>
+        <div ref={exportRef}>
+          <ExportSheet data={exportData} />
         </div>
       </div>
 
