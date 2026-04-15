@@ -49,8 +49,8 @@ export function SummaryStep() {
     species: species?.id,
     elfSubtype: subtype?.id ?? null,
     attributes: state.attributes,
-    positiveTalents: state.positiveTalents, 
-    negativeTalents: state.negativeTalents, 
+    positiveTalents: posTalents, 
+    negativeTalents: negTalents, 
     wealth: { copper: 200, silver: 100, gold: 50, platinum: 0 },
     equipment: allEquipment,
   };
