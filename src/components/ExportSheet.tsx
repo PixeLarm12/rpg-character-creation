@@ -1,3 +1,5 @@
+import { useAppContext } from "@/context/AppContext";
+
 type ExportSheetProps = {
   data: {
     name: string;
@@ -21,6 +23,9 @@ type ExportSheetProps = {
 };
 
 export function ExportSheet({ data }: ExportSheetProps) {
+  const { state, t, language } = useAppContext();
+  const te = t.export;
+
   return (
     <div className="p-10 bg-white text-black w-[794px] min-h-[1123px] font-serif">
 
@@ -31,14 +36,14 @@ export function ExportSheet({ data }: ExportSheetProps) {
         </h1>
 
         <div className="flex flex-wrap gap-6 mt-2 text-sm">
-          <span><strong>Species:</strong> {data.species ?? "-"}</span>
+          <span><strong>{te.species}:</strong> {data.species ?? "-"}</span>
 
           {data.elfSubtype && (
-            <span><strong>Subtype:</strong> {data.elfSubtype}</span>
+            <span><strong>{te.speciesSubtype}:</strong> {data.elfSubtype}</span>
           )}
 
-          <span><strong>Age:</strong> {data.age ?? "-"}</span>
-          <span><strong>Gender:</strong> {data.gender ?? "-"}</span>
+          <span><strong>{te.age}:</strong> {data.age ?? "-"}</span>
+          <span><strong>{te.gender}:</strong> {data.gender ?? "-"}</span>
         </div>
       </div>
 
@@ -50,16 +55,16 @@ export function ExportSheet({ data }: ExportSheetProps) {
 
           {/* PHYSICAL */}
           <div className="border border-black p-4">
-            <h2 className="font-bold text-lg mb-2">Physical</h2>
+            <h2 className="font-bold text-lg mb-2">{te.physicalInfo}</h2>
             <div className="text-sm space-y-1">
-              <div><strong>Height:</strong> {data.height ?? "-"}</div>
-              <div><strong>Weight:</strong> {data.weight ?? "-"}</div>
+              <div><strong>{te.height}:</strong> {data.height ?? "-"}</div>
+              <div><strong>{te.weight}:</strong> {data.weight ?? "-"}</div>
             </div>
           </div>
 
           {/* ATTRIBUTES */}
           <div className="border border-black p-4">
-            <h2 className="font-bold text-lg mb-2">Attributes</h2>
+            <h2 className="font-bold text-lg mb-2">{te.attributes}</h2>
 
             <div className="grid grid-cols-2 gap-2 text-sm">
               {Object.entries(data.attributes || {}).map(([k, v]) => (
@@ -77,13 +82,13 @@ export function ExportSheet({ data }: ExportSheetProps) {
 
           {/* WEALTH */}
           <div className="border border-black p-4">
-            <h2 className="font-bold text-lg mb-2">Wealth</h2>
+            <h2 className="font-bold text-lg mb-2">{te.wealth}</h2>
 
             <div className="grid grid-cols-2 gap-2 text-sm">
-              <div>Copper: {data.wealth?.copper ?? 0}</div>
-              <div>Silver: {data.wealth?.silver ?? 0}</div>
-              <div>Gold: {data.wealth?.gold ?? 0}</div>
-              <div>Platinum: {data.wealth?.platinum ?? 0}</div>
+              <div>{te.copper}: {data.wealth?.copper ?? 0}</div>
+              <div>{te.silver}: {data.wealth?.silver ?? 0}</div>
+              <div>{te.gold}: {data.wealth?.gold ?? 0}</div>
+              <div>{te.platinum}: {data.wealth?.platinum ?? 0}</div>
             </div>
           </div>
 
@@ -94,13 +99,13 @@ export function ExportSheet({ data }: ExportSheetProps) {
 
           {/* TALENTS */}
           <div className="border border-black p-4">
-            <h2 className="font-bold text-lg mb-2">Talents</h2>
+            <h2 className="font-bold text-lg mb-2">{te.talents}</h2>
 
             <div className="text-sm space-y-3">
 
               {/* POSITIVE */}
               <div>
-                <strong className="text-green-700">Positive</strong>
+                <strong className="text-green-700">{te.positive}</strong>
 
                 {data.positiveTalents?.length ? (
                   data.positiveTalents.map((t, i) => (
@@ -115,7 +120,7 @@ export function ExportSheet({ data }: ExportSheetProps) {
 
               {/* NEGATIVE */}
               <div>
-                <strong className="text-red-700">Negative</strong>
+                <strong className="text-red-700">{te.negative}</strong>
 
                 {data.negativeTalents?.length ? (
                   data.negativeTalents.map((t, i) => (
@@ -133,7 +138,7 @@ export function ExportSheet({ data }: ExportSheetProps) {
 
           {/* EQUIPMENT */}
           <div className="border border-black p-4">
-            <h2 className="font-bold text-lg mb-2">Equipment</h2>
+            <h2 className="font-bold text-lg mb-2">{te.equipament}</h2>
 
             <div className="text-sm space-y-1">
               {data.equipment?.length ? (
@@ -151,7 +156,7 @@ export function ExportSheet({ data }: ExportSheetProps) {
 
       {/* NOTES */}
       <div className="mt-8 border border-black p-4 min-h-[120px]">
-        <h2 className="font-bold text-lg mb-2">Notes</h2>
+        <h2 className="font-bold text-lg mb-2">{te.notes}</h2>
       </div>
     </div>
   );
