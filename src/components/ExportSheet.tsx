@@ -64,12 +64,12 @@ export function ExportSheet({ data }: ExportSheetProps) {
             <div className="grid grid-cols-2 gap-2 text-sm">
               {Object.entries(data.attributes || {}).map(([k, v]) => (
                 <div key={k} className="flex flex-col">
-                  <div className="flex justify-between">
-                    <span className="uppercase">{k}</span>
+                  <div className="flex justify-left">
+                    <span className="uppercase">{k}:</span>
                     <span className="font-bold">{v}</span>
                   </div>
 
-                  <div className="border-b border-dashed border-black ml-8 mr-2 mt-1"></div>
+                  <div className="border-b border-dashed border-black ml-12 mt-1"></div>
                 </div>
               ))}
             </div>
