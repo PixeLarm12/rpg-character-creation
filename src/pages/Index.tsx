@@ -64,10 +64,10 @@ function CharacterCreator() {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background min-w-screen">
       {/* Header */}
       <header className="border-b border-border bg-card">
-        <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3">
+        <div className="mx-auto flex max-w-2xl lg:max-w-6xl items-center justify-between px-4 py-3">
           <div className="flex items-center gap-2">
             <Sword className="h-5 w-5 text-primary" />
             <h1 className="font-display text-lg text-gold-gradient">{t.app.title}</h1>
@@ -77,17 +77,17 @@ function CharacterCreator() {
       </header>
 
       {/* Stepper */}
-      <div className="mx-auto max-w-4xl px-4 pt-4">
+      <div className="mx-auto max-w-2xl lg:max-w-6xl px-4 pt-4">
         <Stepper />
       </div>
 
       {/* Step content */}
-      <main className="mx-auto max-w-4xl px-4 py-6">
+      <main className="mx-auto max-w-2xl lg:max-w-6xl px-4 py-6">
         {steps[currentStep]}
       </main>
 
       {/* Navigation */}
-      <div className="mx-auto flex max-w-4xl items-center justify-between px-4 pb-8">
+      <div className="mx-auto flex max-w-2xl lg:max-w-6xl items-center justify-between px-4 pb-8">
         <button
           onClick={back}
           disabled={currentStep === 0}

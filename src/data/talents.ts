@@ -1,31 +1,145 @@
-// Talent data for the RPG character creator
 export interface TalentData {
   id: string;
   name: string;
   namePtBr: string;
   description: string;
   descriptionPtBr: string;
-  type: "positive" | "negative";
   category: string;
+  type: "positive" | "negative";
 }
 
-export const talentsData: TalentData[] = [
-  // Positive talents
-  { id: "brave", name: "Brave", namePtBr: "Corajoso", description: "+1 to courage checks in dangerous situations.", descriptionPtBr: "+1 em testes de coragem em situações perigosas.", type: "positive", category: "Mental" },
-  { id: "quickReflexes", name: "Quick Reflexes", namePtBr: "Reflexos Rápidos", description: "+1 to initiative rolls.", descriptionPtBr: "+1 em rolagens de iniciativa.", type: "positive", category: "Physical" },
-  { id: "keenEye", name: "Keen Eye", namePtBr: "Olho Aguçado", description: "+1 to ranged attack rolls.", descriptionPtBr: "+1 em ataques à distância.", type: "positive", category: "Physical" },
-  { id: "charismatic", name: "Charismatic", namePtBr: "Carismático", description: "+1 to persuasion and diplomacy checks.", descriptionPtBr: "+1 em testes de persuasão e diplomacia.", type: "positive", category: "Social" },
-  { id: "toughSkin", name: "Tough Skin", namePtBr: "Pele Resistente", description: "+1 natural armor.", descriptionPtBr: "+1 de armadura natural.", type: "positive", category: "Physical" },
-  { id: "scholar", name: "Scholar", namePtBr: "Estudioso", description: "+1 to knowledge and lore checks.", descriptionPtBr: "+1 em testes de conhecimento e sabedoria.", type: "positive", category: "Mental" },
-  { id: "nimbleFingers", name: "Nimble Fingers", namePtBr: "Dedos Ágeis", description: "+1 to lockpicking and sleight of hand.", descriptionPtBr: "+1 em abrir fechaduras e prestidigitação.", type: "positive", category: "Physical" },
-  { id: "ironWill", name: "Iron Will", namePtBr: "Vontade de Ferro", description: "+1 to resist mental effects and fear.", descriptionPtBr: "+1 para resistir efeitos mentais e medo.", type: "positive", category: "Mental" },
-  // Negative talents
-  { id: "clumsy", name: "Clumsy", namePtBr: "Desajeitado", description: "-1 to acrobatics and balance checks.", descriptionPtBr: "-1 em testes de acrobacia e equilíbrio.", type: "negative", category: "Physical" },
-  { id: "shortTempered", name: "Short-Tempered", namePtBr: "Temperamental", description: "-1 to composure checks when provoked.", descriptionPtBr: "-1 em testes de compostura quando provocado.", type: "negative", category: "Mental" },
-  { id: "frailBody", name: "Frail Body", namePtBr: "Corpo Frágil", description: "-1 to max health points.", descriptionPtBr: "-1 em pontos de vida máximos.", type: "negative", category: "Physical" },
-  { id: "gullible", name: "Gullible", namePtBr: "Ingênuo", description: "-1 to insight and deception detection checks.", descriptionPtBr: "-1 em testes de intuição e detecção de mentiras.", type: "negative", category: "Social" },
-  { id: "slowLearner", name: "Slow Learner", namePtBr: "Aprendiz Lento", description: "-1 to learning new skills.", descriptionPtBr: "-1 para aprender novas habilidades.", type: "negative", category: "Mental" },
-  { id: "cowardly", name: "Cowardly", namePtBr: "Covarde", description: "-1 to courage checks.", descriptionPtBr: "-1 em testes de coragem.", type: "negative", category: "Mental" },
-  { id: "poorVision", name: "Poor Vision", namePtBr: "Visão Fraca", description: "-1 to perception checks involving sight.", descriptionPtBr: "-1 em testes de percepção envolvendo visão.", type: "negative", category: "Physical" },
-  { id: "sociallyAwkward", name: "Socially Awkward", namePtBr: "Socialmente Estranho", description: "-1 to social interaction checks.", descriptionPtBr: "-1 em testes de interação social.", type: "negative", category: "Social" },
+const baseTalents = [
+  {
+    id: "brave",
+    name: "Brave",
+    namePtBr: "Corajoso",
+    positive: "Gain advantage on courage checks in dangerous situations.",
+    negative: "Suffer disadvantage on courage checks in dangerous situations.",
+    category: "Mental"
+  },
+  {
+    id: "quickReflexes",
+    name: "Quick Reflexes",
+    namePtBr: "Reflexos Rápidos",
+    positive: "Gain advantage on initiative rolls.",
+    negative: "Suffer disadvantage on initiative rolls.",
+    category: "Physical"
+  },
+  {
+    id: "keenEye",
+    name: "Keen Eye",
+    namePtBr: "Olho Aguçado",
+    positive: "Gain advantage on ranged attack rolls.",
+    negative: "Suffer disadvantage on ranged attack rolls.",
+    category: "Physical"
+  },
+  {
+    id: "charismatic",
+    name: "Charismatic",
+    namePtBr: "Carismático",
+    positive: "Gain advantage on persuasion and diplomacy checks.",
+    negative: "Suffer disadvantage on persuasion and diplomacy checks.",
+    category: "Social"
+  },
+  {
+    id: "toughSkin",
+    name: "Tough Skin",
+    namePtBr: "Pele Resistente",
+    positive: "Gain advantage when resisting physical damage.",
+    negative: "Suffer disadvantage when resisting physical damage.",
+    category: "Physical"
+  },
+  {
+    id: "scholar",
+    name: "Scholar",
+    namePtBr: "Estudioso",
+    positive: "Gain advantage on knowledge and lore checks.",
+    negative: "Suffer disadvantage on knowledge and lore checks.",
+    category: "Mental"
+  },
+  {
+    id: "nimbleFingers",
+    name: "Nimble Fingers",
+    namePtBr: "Dedos Ágeis",
+    positive: "Gain advantage on lockpicking and sleight of hand.",
+    negative: "Suffer disadvantage on lockpicking and sleight of hand.",
+    category: "Physical"
+  },
+  {
+    id: "ironWill",
+    name: "Iron Will",
+    namePtBr: "Vontade de Ferro",
+    positive: "Gain advantage to resist mental effects and fear.",
+    negative: "Suffer disadvantage to resist mental effects and fear.",
+    category: "Mental"
+  },
+  {
+    id: "vision",
+    name: "Vision",
+    namePtBr: "Visão",
+    positive: "Gain advantage on perception checks involving sight.",
+    negative: "Suffer disadvantage on perception checks involving sight.",
+    category: "Physical"
+  },
+  {
+    id: "social",
+    name: "Social",
+    namePtBr: "Social",
+    positive: "Gain advantage on social interaction checks.",
+    negative: "Suffer disadvantage on social interaction checks.",
+    category: "Social"
+  },
+  {
+    id: "temper",
+    name: "Temper",
+    namePtBr: "Temperamento",
+    positive: "Remain composed under pressure, gaining advantage on composure checks.",
+    negative: "Lose composure easily, suffering disadvantage on composure checks.",
+    category: "Mental"
+  },
+  {
+    id: "body",
+    name: "Body",
+    namePtBr: "Corpo",
+    positive: "Have a resilient body, handling physical strain with advantage.",
+    negative: "Have a fragile body, struggling with physical strain and suffering disadvantage.",
+    category: "Physical"
+  },
+  {
+    id: "insight",
+    name: "Insight",
+    namePtBr: "Intuição",
+    positive: "Gain advantage on detecting lies and understanding intentions.",
+    negative: "Suffer disadvantage when detecting lies and understanding intentions.",
+    category: "Social"
+  },
+  {
+    id: "learning",
+    name: "Learning",
+    namePtBr: "Aprendizado",
+    positive: "Learn new skills more easily, gaining advantage when doing so.",
+    negative: "Struggle to learn new skills, suffering disadvantage when doing so.",
+    category: "Mental"
+  }
 ];
+
+export const talentsData: TalentData[] = baseTalents.flatMap(talent => [
+  {
+    id: `${talent.id}_pos`,
+    name: talent.name,
+    namePtBr: talent.namePtBr,
+    description: talent.positive,
+    descriptionPtBr: talent.positive,
+    category: talent.category,
+    type: "positive",
+  },
+  {
+    id: `${talent.id}_neg`,
+    name: talent.name,
+    namePtBr: talent.namePtBr,
+    description: talent.negative,
+    descriptionPtBr: talent.negative,
+    category: talent.category,
+    type: "negative",
+  }
+]);
