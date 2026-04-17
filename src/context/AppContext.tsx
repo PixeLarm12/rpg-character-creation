@@ -13,7 +13,7 @@ export interface CharacterState {
   height: string;
   age: string;
   // Step 3
-  attributeMethod: "predefined" | "points" | "archetype" | null;
+  attributeMethod: "points" | "archetype" | null;
   attributes: Record<string, number>;
   archetypeId: string | null;
   predefinedAssignment: Record<string, number>;
@@ -28,7 +28,7 @@ export interface CharacterState {
 export type CharacterAction =
   | { type: "SET_SPECIES"; speciesId: string; elfSubtypeId?: string | null }
   | { type: "SET_BASICS"; field: string; value: string }
-  | { type: "SET_ATTRIBUTE_METHOD"; method: "predefined" | "points" | "archetype" }
+  | { type: "SET_ATTRIBUTE_METHOD"; method: "points" | "archetype" }
   | { type: "SET_ATTRIBUTES"; attributes: Record<string, number> }
   | { type: "SET_ARCHETYPE"; archetypeId: string; attributes: Record<string, number> }
   | { type: "SET_PREDEFINED"; assignment: Record<string, number>; adjustmentUsed: boolean }
@@ -68,7 +68,16 @@ function characterReducer(state: CharacterState, action: CharacterAction): Chara
       return {
         ...state,
         attributeMethod: action.method,
-        attributes: { ...initialAttributes },
+        attributes: {
+          COR: 0,
+          EXA: 0,
+          CHA: -2,
+          INT: -2,
+          DEX: -2,
+          PER: -2,
+          STR: -2,
+          RES: -2,
+        },
         archetypeId: null,
         predefinedAssignment: { ...initialAttributes },
         predefinedAdjustmentUsed: false,

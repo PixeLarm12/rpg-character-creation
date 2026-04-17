@@ -106,7 +106,7 @@ export function SummaryStep() {
           <Section title={ts.characterInfo}>
             <div className="grid grid-cols-2 gap-1 text-sm">
               <span className="text-muted-foreground">{t.basics.name}:</span><span>{state.name || "—"}</span>
-              <span className="text-muted-foreground">{t.basics.gender}:</span><span>{state.gender || "—"}</span>
+              <span className="text-muted-foreground">{t.basics.gender}:</span><span>{state.gender ? (t.basics.genders as any)[state.gender] : "—"}</span>
               <span className="text-muted-foreground">{t.basics.weight}:</span><span>{state.weight ? (t.basics.weights as any)[state.weight] : "—"}</span>
               <span className="text-muted-foreground">{t.basics.height}:</span><span>{state.height ? (t.basics.heights as any)[state.height] : "—"}</span>
               <span className="text-muted-foreground">{t.basics.age}:</span><span>{state.age ? (t.basics.ages as any)[state.age] : "—"}</span>

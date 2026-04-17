@@ -6,7 +6,6 @@ import { useCallback, useMemo, useEffect } from "react";
 
 const MAIN_ATTRS = ["CHA", "INT", "DEX", "PER", "STR", "RES"] as const;
 const FIXED_ATTRS = ["COR", "EXA"] as const;
-const PREDEFINED_VALUES = [-1, -1, 0, 0, 1, 2];
 
 /** Step 3: Attribute assignment with 3 methods */
 export function AttributesStep() {
@@ -17,8 +16,7 @@ export function AttributesStep() {
   const subtype = species?.subtypes?.find((s) => s.id === state.elfSubtypeId);
   const bonusAttr = subtype?.attributeBonus ?? species?.attributeBonus;
 
-  const methodBtns: { key: "predefined" | "points" | "archetype"; label: string; desc: string }[] = [
-    { key: "predefined", label: ta.method1, desc: ta.method1Desc },
+  const methodBtns: { key: "points" | "archetype"; label: string; desc: string }[] = [
     { key: "points", label: ta.method2, desc: ta.method2Desc },
     { key: "archetype", label: ta.method3, desc: ta.method3Desc },
   ];
@@ -54,7 +52,6 @@ export function AttributesStep() {
         </p>
       )}
 
-      {state.attributeMethod === "predefined" && <PredefinedMethod />}
       {state.attributeMethod === "points" && <PointsMethod />}
       {state.attributeMethod === "archetype" && <ArchetypeMethod />}
 
@@ -72,89 +69,56 @@ export function AttributesStep() {
   );
 }
 
-// ---- Predefined Distribution ----
-function PredefinedMethod() {
-  const { state, dispatch, t } = useAppContext();
-  const ta = t.attributes;
-  const attrs = state.predefinedAssignment;
-
-  const cycleValue = (attr: string, dir: number) => {
-    const current = attrs[attr] || 0;
-    const next = current + dir;
-    if (next < -1 || next > 3) return;
-
-    const newAssignment = { ...attrs, [attr]: next };
-
-    const baseSum = PREDEFINED_VALUES.reduce((a, b) => a + b, 0);
-    const newSum = MAIN_ATTRS.reduce((s, a) => s + (newAssignment[a] || 0), 0);
-    const adjustmentUsed = newSum !== baseSum;
-
-    dispatch({
-      type: "SET_PREDEFINED",
-      assignment: newAssignment,
-      adjustmentUsed: Math.abs(newSum - baseSum) <= 1 && adjustmentUsed,
-    });
-  };
-
-  return (
-    <div className="space-y-3">
-      <p className="text-xs text-muted-foreground">{ta.method1Desc}</p>
-      <div className="grid gap-2 sm:grid-cols-2">
-        {MAIN_ATTRS.map((a) => (
-          <div key={a} className="flex items-center justify-between rounded-md border border-border bg-card px-3 py-2">
-            <span className="font-display text-sm">{ta.names[a]}</span>
-            <div className="flex items-center gap-2">
-              <button onClick={() => cycleValue(a, -1)} className="rounded bg-muted p-1 hover:bg-secondary">
-                <Minus className="h-3 w-3" />
-              </button>
-              <span className="w-8 text-center font-bold text-primary">{attrs[a] || 0}</span>
-              <button onClick={() => cycleValue(a, 1)} className="rounded bg-muted p-1 hover:bg-secondary">
-                <Plus className="h-3 w-3" />
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 // ---- Point Distribution ----
 function PointsMethod() {
   const { state, dispatch, t } = useAppContext();
   const ta = t.attributes;
   const attrs = state.attributes;
 
-  // ✅ Inicialização correta (SEM bug)
   useEffect(() => {
-    const needsInit = MAIN_ATTRS.every((a) => attrs[a] === undefined);
+    const isWrongInit = MAIN_ATTRS.every((a) => attrs[a] === 0 || attrs[a] === undefined);
 
-    if (needsInit) {
-      const init: Record<string, number> = { COR: 0, EXA: 0 };
-      MAIN_ATTRS.forEach((a) => (init[a] = -2));
+    if (isWrongInit) {
+      const init: Record<string, number> = {
+        COR: 0,
+        EXA: 0,
+      };
+
+      MAIN_ATTRS.forEach((a) => {
+        init[a] = -2;
+      });
 
       dispatch({ type: "SET_ATTRIBUTES", attributes: init });
     }
   }, [attrs, dispatch]);
 
-  const pointsUsed = useMemo(
-    () => MAIN_ATTRS.reduce((s, a) => s + ((attrs[a] ?? -2) + 2), 0),
-    [attrs]
-  );
+  const getAttrValue = (a: string) => {
+    return attrs[a] ?? -2;
+  };
 
-  const remaining = 8 - pointsUsed;
+  const pointsUsed = useMemo(() => {
+    return MAIN_ATTRS.reduce((sum, a) => {
+      return sum + (getAttrValue(a) + 2);
+    }, 0);
+  }, [attrs]);
+
+  const remaining = 10 - pointsUsed;
 
   const adjust = useCallback(
     (attr: string, dir: number) => {
-      const current = attrs[attr] ?? -2;
+      const current = getAttrValue(attr);
       const next = current + dir;
 
       if (next > 3 || next < -2) return;
+
       if (dir > 0 && remaining <= 0) return;
 
       dispatch({
         type: "SET_ATTRIBUTES",
-        attributes: { ...attrs, [attr]: next },
+        attributes: {
+          ...attrs,
+          [attr]: next,
+        },
       });
     },
     [attrs, remaining, dispatch]
@@ -163,27 +127,55 @@ function PointsMethod() {
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-2">
-        <span className="text-sm font-display text-primary">{ta.pointsRemaining}:</span>
-        <span className={`font-bold text-lg ${remaining < 0 ? "text-destructive" : "text-primary"}`}>
+        <span className="text-sm font-display text-primary">
+          {ta.pointsRemaining}:
+        </span>
+        <span
+          className={`font-bold text-lg ${
+            remaining < 0 ? "text-destructive" : "text-primary"
+          }`}
+        >
           {remaining}
         </span>
       </div>
 
       <div className="grid gap-2 sm:grid-cols-2">
-        {MAIN_ATTRS.map((a) => (
-          <div key={a} className="flex items-center justify-between rounded-md border border-border bg-card px-3 py-2">
-            <span className="font-display text-sm">{ta.names[a]}</span>
-            <div className="flex items-center gap-2">
-              <button onClick={() => adjust(a, -1)} className="rounded bg-muted p-1 hover:bg-secondary">
-                <Minus className="h-3 w-3" />
-              </button>
-              <span className="w-8 text-center font-bold text-primary">{attrs[a] ?? -2}</span>
-              <button onClick={() => adjust(a, 1)} className="rounded bg-muted p-1 hover:bg-secondary">
-                <Plus className="h-3 w-3" />
-              </button>
+        {MAIN_ATTRS.map((a) => {
+          const value = getAttrValue(a);
+
+          return (
+            <div
+              key={a}
+              className="flex items-center justify-between rounded-md border border-border bg-card px-3 py-2"
+            >
+              <span className="font-display text-sm">
+                {ta.names[a]}
+              </span>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => adjust(a, -1)}
+                  disabled={value <= -2}
+                  className="rounded bg-muted p-1 hover:bg-secondary disabled:opacity-40"
+                >
+                  <Minus className="h-3 w-3" />
+                </button>
+
+                <span className="w-8 text-center font-bold text-primary">
+                  {value}
+                </span>
+
+                <button
+                  onClick={() => adjust(a, 1)}
+                  disabled={value >= 3 || remaining <= 0}
+                  className="rounded bg-muted p-1 hover:bg-secondary disabled:opacity-40"
+                >
+                  <Plus className="h-3 w-3" />
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
