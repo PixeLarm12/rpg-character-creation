@@ -36,7 +36,7 @@ export function ExportSheet({ data }: ExportSheetProps) {
   const talentsMap = Object.fromEntries(
     talentsData.map(t => [t.id, t])
   );
-  
+
   const speciesMap = Object.fromEntries(
     speciesData.map(s => [s.id, s])
   );
@@ -49,6 +49,14 @@ export function ExportSheet({ data }: ExportSheetProps) {
   const heightTranslated = theights[data.height];
   const genderTranslated = tgenders[data.gender];
   const elfSubtypeTranslated = ts[data.elfSubtype];
+
+  const passiveTranslated = specie.hasSubtypes
+    ? (language === "pt-br"
+      ? specie.subtypes.filter((s) => s.id == data.elfSubtype)[0]?.passivePtBr
+      : specie.subtypes.filter((s) => s.id == data.elfSubtype)[0]?.passive)
+    : (language === "pt-br"
+      ? specie.passivePtBr
+      : specie.passive);
 
   return (
     <div className="p-10 bg-white text-black w-[794px] min-h-[1123px] font-serif">
@@ -68,6 +76,10 @@ export function ExportSheet({ data }: ExportSheetProps) {
 
           <span><strong>{te.age}:</strong> {ageTranslated ?? "-"}</span>
           <span><strong>{te.gender}:</strong> {genderTranslated ?? "-"}</span>
+        </div>
+
+        <div className="flex flex-wrap gap-6 mt-2 text-sm">
+          <span><i>{passiveTranslated}</i></span>
         </div>
       </div>
 
