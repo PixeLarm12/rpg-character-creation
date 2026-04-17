@@ -18,6 +18,8 @@ export const speciesData: SpeciesData[] = [
     attributeBonus: { attribute: "RES", value: 1 },
     passive: "Stone Resilience: +1 to resist poison and knockback.",
     passivePtBr: "Resiliência Pétrea: +1 para resistir veneno e empurrão.",
+    hasSubtypes: false,
+    subtypes: []
   },
   {
     id: "auneke",
@@ -26,6 +28,8 @@ export const speciesData: SpeciesData[] = [
     attributeBonus: { attribute: "PER", value: 1 },
     passive: "Spirit Sight: Can sense supernatural presences within 10m.",
     passivePtBr: "Visão Espiritual: Pode sentir presenças sobrenaturais em 10m.",
+    hasSubtypes: false,
+    subtypes: []
   },
   {
     id: "draconian",
@@ -34,14 +38,16 @@ export const speciesData: SpeciesData[] = [
     attributeBonus: { attribute: "STR", value: 1 },
     passive: "Dragon Breath: Once per rest, deal 1d6 fire damage in a cone.",
     passivePtBr: "Sopro de Dragão: Uma vez por descanso, causa 1d6 de dano de fogo em cone.",
+    hasSubtypes: false,
+    subtypes: []
   },
   {
     id: "elf",
     translationKey: "elf",
     movement: 7,
     attributeBonus: { attribute: "DEX", value: 1 },
-    passive: "Keen Senses: Advantage on perception checks in natural environments.",
-    passivePtBr: "Sentidos Aguçados: Vantagem em testes de percepção em ambientes naturais.",
+    passive: "Choose a elf subtype to get your passive.",
+    passivePtBr: "Escolha um subtipo para ter sua passiva.",
     hasSubtypes: true,
     subtypes: [
       { id: "mountainElf", translationKey: "mountainElf", passive: "Mountain Endurance: Immune to altitude sickness, +1 to climbing.", passivePtBr: "Resistência Montanhesa: Imune a mal de altitude, +1 para escalada.", attributeBonus: { attribute: "RES", value: 1 } },
@@ -57,6 +63,8 @@ export const speciesData: SpeciesData[] = [
     attributeBonus: { attribute: "INT", value: 1 },
     passive: "Tinker's Insight: Advantage on crafting and mechanism checks.",
     passivePtBr: "Perspicácia do Inventor: Vantagem em testes de fabricação e mecanismos.",
+    hasSubtypes: false,
+    subtypes: []
   },
   {
     id: "human",
@@ -65,6 +73,8 @@ export const speciesData: SpeciesData[] = [
     attributeBonus: { attribute: "CHA", value: 1 },
     passive: "Adaptable: Gain +1 to any one skill check per rest.",
     passivePtBr: "Adaptável: Ganha +1 em qualquer teste de habilidade uma vez por descanso.",
+    hasSubtypes: false,
+    subtypes: []
   },
   {
     id: "kweedo",
@@ -73,6 +83,8 @@ export const speciesData: SpeciesData[] = [
     attributeBonus: { attribute: "DEX", value: 1 },
     passive: "Amphibious: Can breathe underwater and swim at full speed.",
     passivePtBr: "Anfíbio: Pode respirar debaixo d'água e nadar em velocidade total.",
+    hasSubtypes: false,
+    subtypes: []
   },
   {
     id: "liten",
@@ -81,6 +93,8 @@ export const speciesData: SpeciesData[] = [
     attributeBonus: { attribute: "DEX", value: 1 },
     passive: "Lucky: Once per session, reroll a failed check.",
     passivePtBr: "Sortudo: Uma vez por sessão, repita um teste falho.",
+    hasSubtypes: false,
+    subtypes: []
   },
   {
     id: "minotaur",
@@ -89,6 +103,8 @@ export const speciesData: SpeciesData[] = [
     attributeBonus: { attribute: "STR", value: 1 },
     passive: "Charge: After moving 4+ meters in a straight line, deal +1d6 melee damage.",
     passivePtBr: "Investida: Após mover 4+ metros em linha reta, causa +1d6 de dano corpo a corpo.",
+    hasSubtypes: false,
+    subtypes: []
   },
   {
     id: "thamuz",
@@ -97,5 +113,7 @@ export const speciesData: SpeciesData[] = [
     attributeBonus: { attribute: "CHA", value: 1 },
     passive: "Infernal Resistance: Resist fire damage and intimidation effects.",
     passivePtBr: "Resistência Infernal: Resiste dano de fogo e efeitos de intimidação.",
+    hasSubtypes: false,
+    subtypes: []
   },
 ];

@@ -1,4 +1,6 @@
 import { useAppContext } from "@/context/AppContext";
+import { talentsData } from "@/data/talents";
+import { speciesData } from "@/data/species";
 
 type ExportSheetProps = {
   data: {
@@ -7,8 +9,8 @@ type ExportSheetProps = {
     age?: number;
     height?: string;
     weight?: string;
-    species?: string; // agora é ID
-    elfSubtype?: string | null; // ID
+    species?: string;
+    elfSubtype?: string | null;
     attributes: Record<string, number>;
     positiveTalents: any[];
     negativeTalents: any[];
@@ -25,6 +27,36 @@ type ExportSheetProps = {
 export function ExportSheet({ data }: ExportSheetProps) {
   const { state, t, language } = useAppContext();
   const te = t.export;
+  const ts = t.species;
+  const tweights = t.basics.weights;
+  const theights = t.basics.heights;
+  const tage = t.basics.ages;
+  const tgenders = t.basics.genders;
+
+  const talentsMap = Object.fromEntries(
+    talentsData.map(t => [t.id, t])
+  );
+
+  const speciesMap = Object.fromEntries(
+    speciesData.map(s => [s.id, s])
+  );
+
+  const specie = speciesMap[data.species];
+  const specieTranslated = ts[specie.translationKey];
+
+  const ageTranslated = tage[data.age];
+  const weightTranslated = tweights[data.weight];
+  const heightTranslated = theights[data.height];
+  const genderTranslated = tgenders[data.gender];
+  const elfSubtypeTranslated = ts[data.elfSubtype];
+
+  const passiveTranslated = specie.hasSubtypes
+    ? (language === "pt-br"
+      ? specie.subtypes.filter((s) => s.id == data.elfSubtype)[0]?.passivePtBr
+      : specie.subtypes.filter((s) => s.id == data.elfSubtype)[0]?.passive)
+    : (language === "pt-br"
+      ? specie.passivePtBr
+      : specie.passive);
 
   return (
     <div className="p-10 bg-white text-black w-[794px] min-h-[1123px] font-serif">
@@ -36,14 +68,18 @@ export function ExportSheet({ data }: ExportSheetProps) {
         </h1>
 
         <div className="flex flex-wrap gap-6 mt-2 text-sm">
-          <span><strong>{te.species}:</strong> {data.species ?? "-"}</span>
+          <span><strong>{te.species}:</strong> {specieTranslated.name ?? "-"}</span>
 
-          {data.elfSubtype && (
-            <span><strong>{te.speciesSubtype}:</strong> {data.elfSubtype}</span>
+          {elfSubtypeTranslated && (
+            <span><strong>{te.speciesSubtype}:</strong> {elfSubtypeTranslated.name}</span>
           )}
 
-          <span><strong>{te.age}:</strong> {data.age ?? "-"}</span>
-          <span><strong>{te.gender}:</strong> {data.gender ?? "-"}</span>
+          <span><strong>{te.age}:</strong> {ageTranslated ?? "-"}</span>
+          <span><strong>{te.gender}:</strong> {genderTranslated ?? "-"}</span>
+        </div>
+
+        <div className="flex flex-wrap gap-6 mt-2 text-sm">
+          <span><i>{passiveTranslated}</i></span>
         </div>
       </div>
 
@@ -57,8 +93,8 @@ export function ExportSheet({ data }: ExportSheetProps) {
           <div className="border border-black p-4">
             <h2 className="font-bold text-lg mb-2">{te.physicalInfo}</h2>
             <div className="text-sm space-y-1">
-              <div><strong>{te.height}:</strong> {data.height ?? "-"}</div>
-              <div><strong>{te.weight}:</strong> {data.weight ?? "-"}</div>
+              <div><strong>{te.height}:</strong> {heightTranslated ?? "-"}</div>
+              <div><strong>{te.weight}:</strong> {weightTranslated ?? "-"}</div>
             </div>
           </div>
 
@@ -108,11 +144,19 @@ export function ExportSheet({ data }: ExportSheetProps) {
                 <strong className="text-green-700">{te.positive}</strong>
 
                 {data.positiveTalents?.length ? (
-                  data.positiveTalents.map((t, i) => (
-                    <div key={t?.id ?? i}>
-                      + {t?.name ?? t}
-                    </div>
-                  ))
+                  data.positiveTalents
+                    .filter((item) => item && item.id)
+                    .map((item, i) => {
+                      const talent = talentsMap[item.id];
+
+                      return (
+                        <div key={item.id ?? i}>
+                          + {language === "pt-br"
+                            ? talent?.namePtBr
+                            : talent?.name}
+                        </div>
+                      );
+                    })
                 ) : (
                   <div>-</div>
                 )}
@@ -123,11 +167,19 @@ export function ExportSheet({ data }: ExportSheetProps) {
                 <strong className="text-red-700">{te.negative}</strong>
 
                 {data.negativeTalents?.length ? (
-                  data.negativeTalents.map((t, i) => (
-                    <div key={t?.id ?? i}>
-                      - {t?.name ?? t}
-                    </div>
-                  ))
+                  data.negativeTalents
+                    .filter((item) => item && item.id)
+                    .map((item, i) => {
+                      const talent = talentsMap[item.id];
+
+                      return (
+                        <div key={item.id ?? i}>
+                          - {language === "pt-br"
+                            ? talent?.namePtBr
+                            : talent?.name}
+                        </div>
+                      );
+                    })
                 ) : (
                   <div>-</div>
                 )}
