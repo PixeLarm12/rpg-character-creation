@@ -58,8 +58,6 @@ export const en = {
     title: "Assign Attributes",
     desc: "Choose a method to determine your character's core attributes.",
     methodTitle: "Creation Method",
-    method1: "Predefined Distribution",
-    method1Desc: "Assign values from a fixed set: -1, -1, 0, 0, 1, 2. You may move 1 point between attributes (max +3).",
     method2: "Point Distribution",
     method2Desc: "All attributes start at -2. Spend 8 points freely (max +3 per attribute).",
     method3: "Archetype",

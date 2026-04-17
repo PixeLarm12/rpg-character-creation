@@ -58,8 +58,6 @@ export const ptBr = {
     title: "Atribuir Atributos",
     desc: "Escolha um método para determinar os atributos principais do seu personagem.",
     methodTitle: "Método de Criação",
-    method1: "Distribuição Predefinida",
-    method1Desc: "Atribua valores de um conjunto fixo: -1, -1, 0, 0, 1, 2. Você pode mover 1 ponto entre atributos (máx +3).",
     method2: "Distribuição de Pontos",
     method2Desc: "Todos os atributos começam em -2. Gaste 8 pontos livremente (máx +3 por atributo).",
     method3: "Arquétipo",
