@@ -38,11 +38,16 @@ export function TalentsStep() {
             ? state.negativeTalents.includes(baseId)
             : state.positiveTalents.includes(baseId);
 
+          const isLimitReached = selected.length >= 2;
+          const isDisabledByLimit = isLimitReached && !active;
+
+          const isDisabled = isSelectedInOtherList || isDisabledByLimit;
+
           return (
             <button
               key={`${talent.id}-${talent.type}`}
               onClick={() => {
-                if (isSelectedInOtherList) return;
+                if (isDisabled) return;
 
                 dispatch({
                   type: "TOGGLE_TALENT",
@@ -58,10 +63,19 @@ export function TalentsStep() {
                 }
                 ${
                   isSelectedInOtherList
-                    ? "opacity-40 cursor-not-allowed border-red-600"
+                    ? "opacity-40 cursor-not-allowed border-red-700"
+                    : isDisabledByLimit
+                    ? "opacity-40 cursor-not-allowed"
                     : ""
                 }
               `}
+              title={
+                isSelectedInOtherList
+                  ? tt.alreadySelected
+                  : isDisabledByLimit
+                  ? tt.limitReached
+                  : ""
+              }
             >
               <div
                 className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-sm border ${

@@ -97,6 +97,8 @@ export const en = {
     selected: "selected",
     selectPositive: "Select 2 positive talents",
     selectNegative: "Select 2 negative talents",
+    limitReached: "Limit of 2 talents reached",
+    alreadySelected: "Already selected as other talent type"
   },
   wealth: {
     title: "Starting Wealth",

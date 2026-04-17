@@ -97,6 +97,8 @@ export const ptBr = {
     selected: "selecionado(s)",
     selectPositive: "Selecione 2 talentos positivos",
     selectNegative: "Selecione 2 talentos negativos",
+    limitReached: "Limite de 2 talentos atingido",
+    alreadySelected: "Talento já selecionado como outro tipo"
   },
   wealth: {
     title: "Riqueza Inicial",
