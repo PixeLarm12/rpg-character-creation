@@ -1,4 +1,5 @@
 import { useAppContext } from "@/context/AppContext";
+import { talentsData } from "@/data/talents";
 
 type ExportSheetProps = {
   data: {
@@ -7,8 +8,8 @@ type ExportSheetProps = {
     age?: number;
     height?: string;
     weight?: string;
-    species?: string; // agora é ID
-    elfSubtype?: string | null; // ID
+    species?: string;
+    elfSubtype?: string | null;
     attributes: Record<string, number>;
     positiveTalents: any[];
     negativeTalents: any[];
@@ -25,6 +26,10 @@ type ExportSheetProps = {
 export function ExportSheet({ data }: ExportSheetProps) {
   const { state, t, language } = useAppContext();
   const te = t.export;
+
+  const talentsMap = Object.fromEntries(
+    talentsData.map(t => [t.id, t])
+  );
 
   return (
     <div className="p-10 bg-white text-black w-[794px] min-h-[1123px] font-serif">
@@ -108,11 +113,19 @@ export function ExportSheet({ data }: ExportSheetProps) {
                 <strong className="text-green-700">{te.positive}</strong>
 
                 {data.positiveTalents?.length ? (
-                  data.positiveTalents.map((t, i) => (
-                    <div key={t?.id ?? i}>
-                      + {t?.name ?? t}
-                    </div>
-                  ))
+                  data.positiveTalents
+                    .filter((item) => item && item.id)
+                    .map((item, i) => {
+                      const talent = talentsMap[item.id];
+
+                      return (
+                        <div key={item.id ?? i}>
+                          + {language === "pt-br"
+                            ? talent?.namePtBr
+                            : talent?.name}
+                        </div>
+                      );
+                    })
                 ) : (
                   <div>-</div>
                 )}
@@ -123,11 +136,19 @@ export function ExportSheet({ data }: ExportSheetProps) {
                 <strong className="text-red-700">{te.negative}</strong>
 
                 {data.negativeTalents?.length ? (
-                  data.negativeTalents.map((t, i) => (
-                    <div key={t?.id ?? i}>
-                      - {t?.name ?? t}
-                    </div>
-                  ))
+                  data.negativeTalents
+                    .filter((item) => item && item.id)
+                    .map((item, i) => {
+                      const talent = talentsMap[item.id];
+
+                      return (
+                        <div key={item.id ?? i}>
+                          - {language === "pt-br"
+                            ? talent?.namePtBr
+                            : talent?.name}
+                        </div>
+                      );
+                    })
                 ) : (
                   <div>-</div>
                 )}
