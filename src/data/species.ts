@@ -1,18 +1,20 @@
 // Species data for the RPG character creator
 export interface SpeciesData {
   id: string;
+  image: string;
   translationKey: string;
   movement: number;
   attributeBonus: { attribute: string; value: number };
   passive: string;
   passivePtBr: string;
   hasSubtypes?: boolean;
-  subtypes?: { id: string; translationKey: string; passive: string; passivePtBr: string; attributeBonus: { attribute: string; value: number } }[];
+  subtypes?: { id: string; image: string; translationKey: string; passive: string; passivePtBr: string; attributeBonus: { attribute: string; value: number } }[];
 }
 
 export const speciesData: SpeciesData[] = [
   {
     id: "dwarf",
+    image: "images/species/dwarf.png",
     translationKey: "dwarf",
     movement: 5,
     attributeBonus: { attribute: "RES", value: 1 },
@@ -23,6 +25,7 @@ export const speciesData: SpeciesData[] = [
   },
   {
     id: "auneke",
+    image: "images/species/auneke.png",
     translationKey: "auneke",
     movement: 6,
     attributeBonus: { attribute: "PER", value: 1 },
@@ -33,6 +36,7 @@ export const speciesData: SpeciesData[] = [
   },
   {
     id: "draconian",
+    image: "images/species/draconian.png",
     translationKey: "draconian",
     movement: 6,
     attributeBonus: { attribute: "STR", value: 1 },
@@ -43,6 +47,7 @@ export const speciesData: SpeciesData[] = [
   },
   {
     id: "elf",
+    image: "images/species/forestElf.png",
     translationKey: "elf",
     movement: 7,
     attributeBonus: { attribute: "DEX", value: 1 },
@@ -50,14 +55,15 @@ export const speciesData: SpeciesData[] = [
     passivePtBr: "Escolha um subtipo para ter sua passiva.",
     hasSubtypes: true,
     subtypes: [
-      { id: "mountainElf", translationKey: "mountainElf", passive: "Mountain Endurance: Immune to altitude sickness, +1 to climbing.", passivePtBr: "Resistência Montanhesa: Imune a mal de altitude, +1 para escalada.", attributeBonus: { attribute: "RES", value: 1 } },
-      { id: "forestElf", translationKey: "forestElf", passive: "Woodland Stride: Move through difficult forest terrain freely.", passivePtBr: "Passo Florestal: Move-se livremente por terreno difícil de floresta.", attributeBonus: { attribute: "DEX", value: 1 } },
-      { id: "seaElf", translationKey: "seaElf", passive: "Aquatic Breathing: Can breathe underwater for up to 1 hour.", passivePtBr: "Respiração Aquática: Pode respirar debaixo d'água por até 1 hora.", attributeBonus: { attribute: "PER", value: 1 } },
-      { id: "nobleElf", translationKey: "nobleElf", passive: "Arcane Heritage: +1 to all magical skill checks.", passivePtBr: "Herança Arcana: +1 em todos os testes de habilidades mágicas.", attributeBonus: { attribute: "CHA", value: 1 } },
+      { id: "mountainElf", image: "images/species/mountainElf.png", translationKey: "mountainElf", passive: "Mountain Endurance: Immune to altitude sickness, +1 to climbing.", passivePtBr: "Resistência Montanhesa: Imune a mal de altitude, +1 para escalada.", attributeBonus: { attribute: "RES", value: 1 } },
+      { id: "forestElf", image: "images/species/forestElf.png", translationKey: "forestElf", passive: "Woodland Stride: Move through difficult forest terrain freely.", passivePtBr: "Passo Florestal: Move-se livremente por terreno difícil de floresta.", attributeBonus: { attribute: "DEX", value: 1 } },
+      { id: "seaElf", image: "images/species/seaElf.png", translationKey: "seaElf", passive: "Aquatic Breathing: Can breathe underwater for up to 1 hour.", passivePtBr: "Respiração Aquática: Pode respirar debaixo d'água por até 1 hora.", attributeBonus: { attribute: "PER", value: 1 } },
+      { id: "nobleElf", image: "images/species/nobleElf.png", translationKey: "nobleElf", passive: "Arcane Heritage: +1 to all magical skill checks.", passivePtBr: "Herança Arcana: +1 em todos os testes de habilidades mágicas.", attributeBonus: { attribute: "CHA", value: 1 } },
     ],
   },
   {
     id: "gnome",
+    image: "images/species/gnome.png",
     translationKey: "gnome",
     movement: 5,
     attributeBonus: { attribute: "INT", value: 1 },
@@ -68,6 +74,7 @@ export const speciesData: SpeciesData[] = [
   },
   {
     id: "human",
+    image: "images/species/human.png",
     translationKey: "human",
     movement: 6,
     attributeBonus: { attribute: "CHA", value: 1 },
@@ -78,6 +85,7 @@ export const speciesData: SpeciesData[] = [
   },
   {
     id: "kweedo",
+    image: "images/species/kweedo.png",
     translationKey: "kweedo",
     movement: 6,
     attributeBonus: { attribute: "DEX", value: 1 },
@@ -88,6 +96,7 @@ export const speciesData: SpeciesData[] = [
   },
   {
     id: "liten",
+    image: "images/species/liten.png",
     translationKey: "liten",
     movement: 5,
     attributeBonus: { attribute: "DEX", value: 1 },
@@ -98,6 +107,7 @@ export const speciesData: SpeciesData[] = [
   },
   {
     id: "minotaur",
+    image: "images/species/minotaur.png",
     translationKey: "minotaur",
     movement: 6,
     attributeBonus: { attribute: "STR", value: 1 },
@@ -108,6 +118,7 @@ export const speciesData: SpeciesData[] = [
   },
   {
     id: "thamuz",
+    image: "images/species/thamuz.png",
     translationKey: "thamuz",
     movement: 6,
     attributeBonus: { attribute: "CHA", value: 1 },
