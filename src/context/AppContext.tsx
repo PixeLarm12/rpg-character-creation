@@ -13,8 +13,8 @@ export interface CharacterState {
   height: string;
   age: string;
   // Step 3
-  hp: number;
-  mana: number;
+  hp: number | null;
+  mana: number | null;
   attributeMethod: "points" | "archetype" | null;
   attributes: Record<string, number>;
   archetypeId: string | null;
@@ -51,8 +51,8 @@ export const initialState: CharacterState = {
   weight: "",
   height: "",
   age: "",
-  hp: 0,
-  mana: 0,
+  hp: null,
+  mana: null,
   attributeMethod: null,
   attributes: { ...initialAttributes },
   archetypeId: null,

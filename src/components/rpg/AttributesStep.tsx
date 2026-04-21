@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useAppContext } from "@/context/AppContext";
 import { archetypesData } from "@/data/equipment";
 import { speciesData } from "@/data/species";
@@ -16,31 +17,56 @@ export function AttributesStep() {
   const subtype = species?.subtypes?.find((s) => s.id === state.elfSubtypeId);
   const bonusAttr = subtype?.attributeBonus ?? species?.attributeBonus;
 
+  const [rolling, setRolling] = useState(false);
+  const [displayHp, setDisplayHp] = useState<number | null>(null);
+  const [displayMana, setDisplayMana] = useState<number | null>(null);
+
+  const hasRolled = state.hp !== null && state.mana !== null;
+  
+  const roll3d6 = () =>
+    Math.ceil(Math.random() * 6) +
+    Math.ceil(Math.random() * 6) +
+    Math.ceil(Math.random() * 6);
+
   const roll3d6Min8 = () => {
     let total = 0;
     do {
-      total =
-        Math.ceil(Math.random() * 6) +
-        Math.ceil(Math.random() * 6) +
-        Math.ceil(Math.random() * 6);
+      total = roll3d6();
     } while (total < 8);
     return total;
   };
 
   const rollStats = useCallback(() => {
-    dispatch({
-      type: "SET_HP_MANA",
-      hp: roll3d6Min8(),
-      mana: roll3d6Min8(),
-    });
-  }, [dispatch]);
+    if (rolling) return;
 
-  // Auto-roll inicial
-  useEffect(() => {
-    if (!state.hp || !state.mana) {
-      rollStats();
-    }
-  }, [state.hp, state.mana, rollStats]);
+    setRolling(true);
+
+    let ticks = 0;
+    const interval = setInterval(() => {
+      setDisplayHp(Math.max(8, roll3d6()));
+      setDisplayMana(Math.max(8, roll3d6()));
+
+      ticks++;
+
+      if (ticks > 10) {
+        clearInterval(interval);
+
+        const finalHp = roll3d6Min8();
+        const finalMana = roll3d6Min8();
+
+        setDisplayHp(finalHp);
+        setDisplayMana(finalMana);
+
+        dispatch({
+          type: "SET_HP_MANA",
+          hp: finalHp,
+          mana: finalMana,
+        });
+
+        setRolling(false);
+      }
+    }, 80);
+  }, [dispatch, rolling]);
 
   const methodBtns: { key: "points" | "archetype"; label: string; desc: string }[] = [
     { key: "points", label: ta.method2, desc: ta.method2Desc },
@@ -56,15 +82,15 @@ export function AttributesStep() {
 
       {/* HP / MANA */}
       <div className="rounded-lg border border-primary/20 bg-card p-4 space-y-3">
-        <h3 className="text-lg font-display text-primary">{ ta.hp } & { ta.mana }</h3>
+        <h3 className="text-lg font-display text-primary">{ta.hp} & {ta.mana}</h3>
 
         <div className="flex items-center gap-6 text-lg">
           <div>
-            <strong>{ ta.hp }: </strong> {state.hp ?? "-"}/{state.hp ?? "-"}
+            <strong>{ta.hp}</strong> {rolling ? displayHp : state.hp ?? "-"}/{state.hp}
           </div>
 
           <div>
-            <strong>{ ta.mana }: </strong> {state.mana ?? "-"}/{state.mana ?? "-"}
+            <strong>{ta.mana}</strong> {rolling ? displayMana : state.mana ?? "-"}/{state.mana}
           </div>
 
           <button
@@ -72,12 +98,12 @@ export function AttributesStep() {
             className="ml-auto flex items-center gap-2 rounded-md border border-border px-3 py-1 hover:bg-secondary transition"
           >
             <Dices className="h-4 w-4" />
-            { ta.reroll }
+            {ta.reroll}
           </button>
         </div>
 
         <p className="text-muted-foreground text-sm">
-          { ta.lifeRule }
+          {ta.lifeRule}
         </p>
       </div>
 
@@ -184,9 +210,8 @@ function PointsMethod() {
           {ta.pointsRemaining}:
         </span>
         <span
-          className={`font-bold text-lg ${
-            remaining < 0 ? "text-destructive" : "text-primary"
-          }`}
+          className={`font-bold text-lg ${remaining < 0 ? "text-destructive" : "text-primary"
+            }`}
         >
           {remaining}
         </span>

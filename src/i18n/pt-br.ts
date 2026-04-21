@@ -150,6 +150,8 @@ export const ptBr = {
     distributeAll: "Distribua todos os valores",
     selectTalents: "Selecione exatamente 2 talentos positivos e 2 negativos",
     selectEquipment: "Selecione um pacote de equipamento",
+    hp: "Por favor, role para ter valor de Vida",
+    mana: "Por favor, role para ter valor de Mana"
   },
   export: {
     species: "Espécie",

@@ -150,6 +150,8 @@ export const en = {
     distributeAll: "Please distribute all values",
     selectTalents: "Select exactly 2 positive and 2 negative talents",
     selectEquipment: "Please select an equipment package",
+    hp: "Please roll for HP values",
+    mana: "Please roll for Mana values"
   },
   export: {
     species: "Specie",
