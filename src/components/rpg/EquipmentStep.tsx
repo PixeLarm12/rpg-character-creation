@@ -10,7 +10,7 @@ export function EquipmentStep() {
   return (
     <div className="animate-fade-in space-y-6">
       <div>
-        <h2 className="font-display text-2xl text-gold-gradient">{te.title}</h2>
+        <h2 className="font-display text-2xl md:text-4xl text-gold-gradient">{te.title}</h2>
         <p className="mt-1 text-sm text-muted-foreground">{te.desc}</p>
       </div>
 

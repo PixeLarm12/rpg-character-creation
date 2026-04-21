@@ -112,7 +112,7 @@ export function TalentsStep() {
   return (
     <div className="animate-fade-in space-y-6">
       <div>
-        <h2 className="font-display text-2xl text-gold-gradient">
+        <h2 className="font-display text-2xl md:text-4xl text-gold-gradient">
           {tt.title}
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">

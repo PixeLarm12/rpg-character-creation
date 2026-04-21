@@ -88,7 +88,7 @@ export function SummaryStep() {
       {/* UI normal */}
       <div id="character-sheet">
         <div>
-          <h2 className="font-display text-2xl text-gold-gradient">{ts.title}</h2>
+          <h2 className="font-display text-2xl md:text-4xl text-gold-gradient">{ts.title}</h2>
           <p className="mt-1 text-sm text-muted-foreground">{ts.desc}</p>
         </div>
 

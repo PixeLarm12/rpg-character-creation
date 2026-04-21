@@ -14,7 +14,7 @@ export function CharacterInfoStep() {
   return (
     <div className="animate-fade-in space-y-6">
       <div>
-        <h2 className="font-display text-2xl text-gold-gradient">{tb.title}</h2>
+        <h2 className="font-display text-2xl md:text-4xl text-gold-gradient">{tb.title}</h2>
         <p className="mt-1 text-sm text-muted-foreground">{tb.desc}</p>
       </div>
 

@@ -16,7 +16,7 @@ export function WealthStep() {
   return (
     <div className="animate-fade-in space-y-6">
       <div>
-        <h2 className="font-display text-2xl text-gold-gradient">{tw.title}</h2>
+        <h2 className="font-display text-2xl md:text-4xl text-gold-gradient">{tw.title}</h2>
         <p className="mt-1 text-sm text-muted-foreground">{tw.desc}</p>
       </div>
 
@@ -25,7 +25,7 @@ export function WealthStep() {
           <div key={w.key} className="flex flex-col items-center gap-2 rounded-lg border border-border bg-card p-4">
             <Coins className={`h-8 w-8 ${w.color}`} />
             <span className="font-display text-sm">{(tw as any)[w.key]}</span>
-            <span className="text-2xl font-bold text-foreground">{w.value}</span>
+            <span className="text-2xl md:text-4xl font-bold text-foreground">{w.value}</span>
           </div>
         ))}
       </div>
