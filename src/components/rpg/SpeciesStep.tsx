@@ -46,12 +46,14 @@ export function SpeciesStep() {
           <div className="grid md:grid-cols-2 gap-4 items-center">
 
             {/* IMAGE */}
-            <div className="w-full h-full object-cover grayscale hover:grayscale-0 transition">
-              <img
-                src={selectedSubtype?.image ?? selected.image}
-                alt={selectedSubtype?.translationKey ?? selected.translationKey}
-                className="w-full h-full object-cover"
-              />
+            <div className="w-full h-full flex justify-center">
+              <div className="w-1/2 h-full object-cover grayscale hover:grayscale-0 transition">
+                <img
+                  src={selectedSubtype?.image ?? selected.image}
+                  alt={selectedSubtype?.translationKey ?? selected.translationKey}
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
 
             {/* TEXT CONTENT */}
