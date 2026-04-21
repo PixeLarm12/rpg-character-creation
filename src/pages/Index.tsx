@@ -91,7 +91,7 @@ function CharacterCreator() {
         <button
           onClick={back}
           disabled={currentStep === 0}
-          className="flex items-center gap-1 rounded-md border border-border bg-secondary px-4 py-2 font-display text-sm text-secondary-foreground transition-all hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed"
+          className="flex items-center gap-1 rounded-md border border-border bg-secondary px-4 py-2 font-display text-lg text-secondary-foreground transition-all hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed"
         >
           <ChevronLeft className="h-4 w-4" />
           {t.nav.back}
@@ -99,7 +99,7 @@ function CharacterCreator() {
         {currentStep < TOTAL_STEPS - 1 && (
           <button
             onClick={next}
-            className="flex items-center gap-1 rounded-md bg-primary px-4 py-2 font-display text-sm text-primary-foreground transition-all hover:opacity-90 glow-gold"
+            className="flex items-center gap-1 rounded-md bg-primary px-4 py-2 font-display text-lg text-primary-foreground transition-all hover:opacity-90 glow-gold"
           >
             {t.nav.next}
             <ChevronRight className="h-4 w-4" />

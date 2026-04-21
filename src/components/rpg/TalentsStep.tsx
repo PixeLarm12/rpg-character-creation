@@ -19,7 +19,7 @@ export function TalentsStep() {
   ) => (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <h3 className="font-display text-sm text-primary">{label}</h3>
+        <h3 className="font-display text-lg text-primary">{label}</h3>
         <span className="text-xs text-muted-foreground">
           {selected.length}/2 {tt.selected}
         </span>
@@ -55,7 +55,7 @@ export function TalentsStep() {
                   talentType: type,
                 });
               }}
-              className={`flex items-start gap-2 rounded-md border p-3 text-left text-sm transition-all
+              className={`flex items-start gap-2 rounded-md border p-3 text-left text-lg transition-all
                 ${
                   active
                     ? "border-primary bg-secondary"
@@ -115,7 +115,7 @@ export function TalentsStep() {
         <h2 className="font-display text-2xl md:text-4xl text-gold-gradient">
           {tt.title}
         </h2>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <p className="mt-1 text-lg text-muted-foreground">
           {tt.desc}
         </p>
       </div>

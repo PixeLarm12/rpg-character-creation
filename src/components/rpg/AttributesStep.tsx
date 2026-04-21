@@ -25,17 +25,17 @@ export function AttributesStep() {
     <div className="animate-fade-in space-y-6">
       <div>
         <h2 className="font-display text-2xl md:text-4xl text-gold-gradient">{ta.title}</h2>
-        <p className="mt-1 text-sm text-muted-foreground">{ta.desc}</p>
+        <p className="mt-1 text-lg text-muted-foreground">{ta.desc}</p>
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-sm font-display text-primary">{ta.methodTitle}</h3>
+        <h3 className="text-lg font-display text-primary">{ta.methodTitle}</h3>
         <div className="grid gap-2 sm:grid-cols-3">
           {methodBtns.map((m) => (
             <button
               key={m.key}
               onClick={() => dispatch({ type: "SET_ATTRIBUTE_METHOD", method: m.key })}
-              className={`rounded-lg border p-3 text-left transition-all text-sm
+              className={`rounded-lg border p-3 text-left transition-all text-lg
                 ${state.attributeMethod === m.key ? "border-primary bg-secondary glow-gold" : "border-border bg-card hover:border-primary/50"}
               `}
             >
@@ -56,7 +56,7 @@ export function AttributesStep() {
       {state.attributeMethod === "archetype" && <ArchetypeMethod />}
 
       {state.attributeMethod && (
-        <div className="flex gap-4 rounded-md border border-border bg-muted p-3 text-sm">
+        <div className="flex gap-4 rounded-md border border-border bg-muted p-3 text-lg">
           {FIXED_ATTRS.map((a) => (
             <div key={a} className="flex items-center gap-2">
               <span className="font-display text-muted-foreground">{ta.names[a]}</span>
@@ -127,7 +127,7 @@ function PointsMethod() {
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-2">
-        <span className="text-sm font-display text-primary">
+        <span className="text-lg font-display text-primary">
           {ta.pointsRemaining}:
         </span>
         <span
@@ -148,7 +148,7 @@ function PointsMethod() {
               key={a}
               className="flex items-center justify-between rounded-md border border-border bg-card px-3 py-2"
             >
-              <span className="font-display text-sm">
+              <span className="font-display text-lg">
                 {ta.names[a]}
               </span>
 
@@ -188,7 +188,7 @@ function ArchetypeMethod() {
 
   return (
     <div className="space-y-3">
-      <h4 className="text-sm font-display text-primary">{ta.selectArchetype}</h4>
+      <h4 className="text-lg font-display text-primary">{ta.selectArchetype}</h4>
 
       <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3">
         {archetypesData.map((arch) => {
@@ -209,7 +209,7 @@ function ArchetypeMethod() {
                 ${active ? "border-primary bg-secondary glow-gold" : "border-border bg-card hover:border-primary/50"}
               `}
             >
-              <div className="font-display text-sm">{label}</div>
+              <div className="font-display text-lg">{label}</div>
 
               <div className="mt-1 flex flex-wrap gap-1 text-xs text-muted-foreground">
                 {MAIN_ATTRS.map((a) => (
@@ -227,7 +227,7 @@ function ArchetypeMethod() {
         <div className="grid gap-2 sm:grid-cols-2">
           {MAIN_ATTRS.map((a) => (
             <div key={a} className="flex items-center justify-between rounded-md border border-border bg-card px-3 py-2">
-              <span className="font-display text-sm">{ta.names[a]}</span>
+              <span className="font-display text-lg">{ta.names[a]}</span>
               <span className="font-bold text-primary">{state.attributes[a] ?? 0}</span>
             </div>
           ))}
