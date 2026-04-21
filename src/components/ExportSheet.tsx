@@ -25,7 +25,7 @@ type ExportSheetProps = {
 };
 
 export function ExportSheet({ data }: ExportSheetProps) {
-  const { state, t, language } = useAppContext();
+  const { t, language } = useAppContext();
   const te = t.export;
   const ts = t.species;
   const tweights = t.basics.weights;
@@ -43,6 +43,12 @@ export function ExportSheet({ data }: ExportSheetProps) {
 
   const specie = speciesMap[data.species];
   const specieTranslated = ts[specie.translationKey];
+
+  const selectedSubtype = specie?.subtypes?.find(
+    (s) => s.id === data.elfSubtype
+  );
+
+  const imageSrc = selectedSubtype?.image ?? specie.image;
 
   const ageTranslated = tage[data.age];
   const weightTranslated = tweights[data.weight];
@@ -62,25 +68,41 @@ export function ExportSheet({ data }: ExportSheetProps) {
     <div className="p-10 bg-white text-black w-[794px] min-h-[1123px] font-serif">
 
       {/* HEADER */}
-      <div className="border-b-2 border-black pb-4 mb-6">
-        <h1 className="text-3xl font-bold tracking-wide">
-          {data.name || "Unnamed Character"}
-        </h1>
+      <div className="border-b-2 border-black pb-4 mb-6 flex justify-between items-start gap-6">
 
-        <div className="flex flex-wrap gap-6 mt-2 text-lg">
-          <span><strong>{te.species}:</strong> {specieTranslated.name ?? "-"}</span>
+        {/* LEFT SIDE */}
+        <div className="flex-1">
+          <h1 className="text-3xl font-bold tracking-wide">
+            {data.name || "Unnamed Character"}
+          </h1>
 
-          {elfSubtypeTranslated && (
-            <span><strong>{te.speciesSubtype}:</strong> {elfSubtypeTranslated.name}</span>
+          <div className="flex flex-wrap gap-6 mt-2 text-lg">
+            <span><strong>{te.species}:</strong> {specieTranslated.name ?? "-"}</span>
+
+            {elfSubtypeTranslated && (
+              <span><strong>{te.speciesSubtype}:</strong> {elfSubtypeTranslated.name}</span>
+            )}
+
+            <span><strong>{te.age}:</strong> {ageTranslated ?? "-"}</span>
+            <span><strong>{te.gender}:</strong> {genderTranslated ?? "-"}</span>
+          </div>
+
+          <div className="flex flex-wrap gap-6 mt-2 text-lg">
+            <span><i>{passiveTranslated}</i></span>
+          </div>
+        </div>
+
+        {/* IMAGE */}
+        <div className="w-40 h-40 border border-black overflow-hidden flex-shrink-0">
+          {imageSrc && (
+            <img
+              src={imageSrc}
+              alt="Character"
+              className="w-full h-full object-cover"
+            />
           )}
-
-          <span><strong>{te.age}:</strong> {ageTranslated ?? "-"}</span>
-          <span><strong>{te.gender}:</strong> {genderTranslated ?? "-"}</span>
         </div>
 
-        <div className="flex flex-wrap gap-6 mt-2 text-lg">
-          <span><i>{passiveTranslated}</i></span>
-        </div>
       </div>
 
       {/* GRID */}
