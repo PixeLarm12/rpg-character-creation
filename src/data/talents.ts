@@ -1,3 +1,12 @@
+export interface TalentData {
+  id: string;
+  name: string;
+  namePtBr: string;
+  description: string;
+  descriptionPtBr: string;
+  type: "positive" | "negative";
+}
+
 const baseTalents = [
   {
     id: 1,
@@ -343,3 +352,22 @@ const baseTalents = [
     descriptionPtBr: "Atrair outros romanticamente ou socialmente."
   }
 ];
+
+export const talentsData: TalentData[] = baseTalents.flatMap(talent => [
+  {
+    id: `${talent.id}`,
+    name: talent.name,
+    namePtBr: talent.namePtBr,
+    description: talent.description,
+    descriptionPtBr: talent.descriptionPtBr,
+    type: "positive",
+  },
+  {
+    id: `${talent.id}`,
+    name: talent.name,
+    namePtBr: talent.namePtBr,
+    description: talent.description,
+    descriptionPtBr: talent.descriptionPtBr,
+    type: "negative",
+  }
+]);

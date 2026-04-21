@@ -2,7 +2,7 @@ import { useAppContext } from "@/context/AppContext";
 import { useRef } from "react";
 import { ExportSheet } from "../ExportSheet";
 import { speciesData } from "@/data/species";
-import { talentsData } from "@/data/talents";
+import { talentsData } from "@/data/talents"
 import { equipmentPackages, defaultEquipment } from "@/data/equipment";
 import { Download } from "lucide-react";
 import jsPDF from "jspdf";
