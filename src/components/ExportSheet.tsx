@@ -67,7 +67,7 @@ export function ExportSheet({ data }: ExportSheetProps) {
           {data.name || "Unnamed Character"}
         </h1>
 
-        <div className="flex flex-wrap gap-6 mt-2 text-lg">
+        <div className="flex flex-wrap gap-6 mt-2 text-sm">
           <span><strong>{te.species}:</strong> {specieTranslated.name ?? "-"}</span>
 
           {elfSubtypeTranslated && (
@@ -78,7 +78,7 @@ export function ExportSheet({ data }: ExportSheetProps) {
           <span><strong>{te.gender}:</strong> {genderTranslated ?? "-"}</span>
         </div>
 
-        <div className="flex flex-wrap gap-6 mt-2 text-lg">
+        <div className="flex flex-wrap gap-6 mt-2 text-sm">
           <span><i>{passiveTranslated}</i></span>
         </div>
       </div>
@@ -92,7 +92,7 @@ export function ExportSheet({ data }: ExportSheetProps) {
           {/* PHYSICAL */}
           <div className="border border-black p-4">
             <h2 className="font-bold text-lg mb-2">{te.physicalInfo}</h2>
-            <div className="text-lg space-y-1">
+            <div className="text-sm space-y-1">
               <div><strong>{te.height}:</strong> {heightTranslated ?? "-"}</div>
               <div><strong>{te.weight}:</strong> {weightTranslated ?? "-"}</div>
             </div>
@@ -102,7 +102,7 @@ export function ExportSheet({ data }: ExportSheetProps) {
           <div className="border border-black p-4">
             <h2 className="font-bold text-lg mb-2">{te.attributes}</h2>
 
-            <div className="grid grid-cols-2 gap-2 text-lg">
+            <div className="grid grid-cols-2 gap-2 text-sm">
               {Object.entries(data.attributes || {}).map(([k, v]) => (
                 <div key={k} className="flex flex-col">
                   <div className="flex justify-left">
@@ -120,7 +120,7 @@ export function ExportSheet({ data }: ExportSheetProps) {
           <div className="border border-black p-4">
             <h2 className="font-bold text-lg mb-2">{te.wealth}</h2>
 
-            <div className="grid grid-cols-2 gap-2 text-lg">
+            <div className="grid grid-cols-2 gap-2 text-sm">
               <div>{te.copper}: {data.wealth?.copper ?? 0}</div>
               <div>{te.silver}: {data.wealth?.silver ?? 0}</div>
               <div>{te.gold}: {data.wealth?.gold ?? 0}</div>
@@ -137,7 +137,7 @@ export function ExportSheet({ data }: ExportSheetProps) {
           <div className="border border-black p-4">
             <h2 className="font-bold text-lg mb-2">{te.talents}</h2>
 
-            <div className="text-lg space-y-3">
+            <div className="text-sm space-y-3">
 
               {/* POSITIVE */}
               <div>
@@ -192,7 +192,7 @@ export function ExportSheet({ data }: ExportSheetProps) {
           <div className="border border-black p-4">
             <h2 className="font-bold text-lg mb-2">{te.equipament}</h2>
 
-            <div className="text-lg space-y-1">
+            <div className="text-sm space-y-1">
               {data.equipment?.length ? (
                 data.equipment.map((e, i) => (
                   <div key={i}>• {e}</div>

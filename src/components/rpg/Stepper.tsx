@@ -18,7 +18,7 @@ export function Stepper() {
             <button
               onClick={() => i < currentStep && setCurrentStep(i)}
               disabled={i > currentStep}
-              className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-display transition-all
+              className={`flex items-center gap-1.5 rounded-full px-3 py-1.5  font-display transition-all
                 ${active ? "bg-primary text-primary-foreground glow-gold" : ""}
                 ${done ? "bg-secondary text-primary cursor-pointer hover:bg-muted" : ""}
                 ${!active && !done ? "text-muted-foreground cursor-not-allowed" : ""}
