@@ -2,9 +2,9 @@ import { useAppContext } from "@/context/AppContext";
 import { Coins } from "lucide-react";
 
 const WEALTH = [
-  { key: "copper", value: 200, color: "text-orange-400" },
-  { key: "silver", value: 100, color: "text-gray-300" },
-  { key: "gold", value: 50, color: "text-primary" },
+  { key: "copper", value: 1000, color: "text-orange-400" },
+  { key: "silver", value: 500, color: "text-gray-300" },
+  { key: "gold", value: 150, color: "text-primary" },
   { key: "platinum", value: 0, color: "text-blue-300" },
 ] as const;
 
