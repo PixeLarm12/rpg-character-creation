@@ -61,7 +61,7 @@ export const en = {
     method2: "Point Distribution",
     method2Desc: "All attributes start at -2. Spend 8 points freely (max +3 per attribute).",
     method3: "Archetype",
-    method3Desc: "Pick a preset character build with pre-assigned attributes.",
+    method3Desc: "Pick a preset character build with pre-assigned attributes. *THERE IS NOT A CLASS.",
     pointsRemaining: "Points remaining",
     speciesBonus: "Species bonus",
     adjustmentRemaining: "adjustment remaining",

@@ -61,7 +61,7 @@ export const ptBr = {
     method2: "Distribuição de Pontos",
     method2Desc: "Todos os atributos começam em -2. Gaste 8 pontos livremente (máx +3 por atributo).",
     method3: "Arquétipo",
-    method3Desc: "Escolha um modelo de personagem pronto com atributos pré-definidos.",
+    method3Desc: "Escolha um modelo de personagem pronto com atributos pré-definidos. *NÃO É UMA CLASSE.",
     pointsRemaining: "Pontos restantes",
     speciesBonus: "Bônus da espécie",
     adjustmentRemaining: "ajuste restante",
