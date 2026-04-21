@@ -60,7 +60,7 @@ export function SummaryStep() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${state.name || "character"}.json`;
+    a.download = `${state.name || "character"}${language}.json`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -82,7 +82,7 @@ export function SummaryStep() {
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
     pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-    pdf.save(`${state.name || "character"}.pdf`);
+    pdf.save(`${state.name || "character"}_${language}.pdf`);
   };
 
   const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
