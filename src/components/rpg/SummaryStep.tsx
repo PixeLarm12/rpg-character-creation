@@ -77,7 +77,7 @@ export function SummaryStep() {
 
   const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
     <div className="rounded-lg border border-border bg-card p-4 space-y-2">
-      <h3 className="font-display text-sm text-primary">{title}</h3>
+      <h3 className="font-display text-lg text-primary">{title}</h3>
       {children}
     </div>
   );
@@ -89,12 +89,12 @@ export function SummaryStep() {
       <div id="character-sheet">
         <div>
           <h2 className="font-display text-2xl md:text-4xl text-gold-gradient">{ts.title}</h2>
-          <p className="mt-1 text-sm text-muted-foreground">{ts.desc}</p>
+          <p className="mt-1 text-lg text-muted-foreground">{ts.desc}</p>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <Section title={ts.characterInfo}>
-            <div className="grid grid-cols-2 gap-1 text-sm">
+            <div className="grid grid-cols-2 gap-1 text-lg">
               <span className="text-muted-foreground">{t.basics.name}:</span><span>{state.name || "—"}</span>
               <span className="text-muted-foreground">{t.basics.gender}:</span><span>{state.gender ? (t.basics.genders as any)[state.gender] : "—"}</span>
               <span className="text-muted-foreground">{t.basics.weight}:</span><span>{state.weight ? (t.basics.weights as any)[state.weight] : "—"}</span>
@@ -104,12 +104,12 @@ export function SummaryStep() {
           </Section>
 
           <Section title={ts.speciesInfo}>
-            <p className="text-sm">{getSpeciesName()}</p>
+            <p className="text-lg">{getSpeciesName()}</p>
             <p className=" text-muted-foreground">{passive}</p>
           </Section>
 
           <Section title={ts.attributesInfo}>
-            <div className="grid grid-cols-2 gap-1 text-sm">
+            <div className="grid grid-cols-2 gap-1 text-lg">
               {Object.entries(state.attributes).map(([k, v]) => (
                 <div key={k} className="flex justify-between">
                   <span className="text-muted-foreground">{(t.attributes.names as any)[k] ?? k}</span>
@@ -120,7 +120,7 @@ export function SummaryStep() {
           </Section>
 
           <Section title={ts.talentsInfo}>
-            <div className="space-y-1 text-sm">
+            <div className="space-y-1 text-lg">
               {posTalents.map((tl) => (
                 <div key={tl.id} className="text-emerald">
                   + {language === "pt-br" ? tl.namePtBr : tl.name}
@@ -135,7 +135,7 @@ export function SummaryStep() {
           </Section>
 
           <Section title={ts.wealthInfo}>
-            <div className="grid grid-cols-2 gap-1 text-sm">
+            <div className="grid grid-cols-2 gap-1 text-lg">
               <span className="text-muted-foreground">{t.wealth.copper}:</span><span>200</span>
               <span className="text-muted-foreground">{t.wealth.silver}:</span><span>100</span>
               <span className="text-muted-foreground">{t.wealth.gold}:</span><span>50</span>
@@ -164,7 +164,7 @@ export function SummaryStep() {
       <div className="flex gap-3">
         <button
           onClick={downloadPDF}
-          className="flex items-center gap-2 rounded-lg bg-secondary px-6 py-3 text-sm text-primary"
+          className="flex items-center gap-2 rounded-lg bg-secondary px-6 py-3 text-lg text-primary"
         >
           <Download className="h-4 w-4" />
           PDF

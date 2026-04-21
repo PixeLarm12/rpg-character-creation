@@ -11,7 +11,7 @@ export function EquipmentStep() {
     <div className="animate-fade-in space-y-6">
       <div>
         <h2 className="font-display text-2xl md:text-4xl text-gold-gradient">{te.title}</h2>
-        <p className="mt-1 text-sm text-muted-foreground">{te.desc}</p>
+        <p className="mt-1 text-lg text-muted-foreground">{te.desc}</p>
       </div>
 
       {/* Packages */}
@@ -48,7 +48,7 @@ export function EquipmentStep() {
 
       {/* Default items */}
       <div className="rounded-lg border border-border bg-muted p-4">
-        <h3 className="font-display text-sm text-primary">{te.defaultItems}</h3>
+        <h3 className="font-display text-lg text-primary">{te.defaultItems}</h3>
         <div className="mt-2 grid grid-cols-2 gap-1  text-muted-foreground sm:grid-cols-4">
           {defaultEquipment.map((item, i) => (
             <span key={i} className="flex items-center gap-1">

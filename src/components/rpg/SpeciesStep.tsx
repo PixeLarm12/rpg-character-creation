@@ -13,7 +13,7 @@ export function SpeciesStep() {
     <div className="animate-fade-in space-y-6">
       <div>
         <h2 className="font-display text-2xl md:text-4xl text-gold-gradient">{tSpecies.title}</h2>
-        <p className="mt-1 text-sm text-muted-foreground">{tSpecies.desc}</p>
+        <p className="mt-1 text-lg text-muted-foreground">{tSpecies.desc}</p>
       </div>
 
       {/* Species grid */}
@@ -25,7 +25,7 @@ export function SpeciesStep() {
             <button
               key={sp.id}
               onClick={() => dispatch({ type: "SET_SPECIES", speciesId: sp.id, elfSubtypeId: null })}
-              className={`rounded-lg border p-3 text-left text-sm font-display transition-all
+              className={`rounded-lg border p-3 text-left text-lg font-display transition-all
                 ${active ? "border-primary bg-secondary glow-gold" : "border-border bg-card hover:border-primary/50"}
               `}
             >
@@ -41,7 +41,7 @@ export function SpeciesStep() {
           <h3 className="font-display text-lg text-primary">
             {(tSpecies as any)[selected.translationKey]?.name}
           </h3>
-          <p className="text-sm text-secondary-foreground">
+          <p className="text-lg text-secondary-foreground">
             {(tSpecies as any)[selected.translationKey]?.desc}
           </p>
 
@@ -54,7 +54,7 @@ export function SpeciesStep() {
           {/* Elf subtypes */}
           {selected.hasSubtypes && selected.subtypes && (
             <div className="space-y-2 pt-2">
-              <p className="text-sm font-display text-primary">{tSpecies.selectSubtype}</p>
+              <p className="text-lg font-display text-primary">{tSpecies.selectSubtype}</p>
               <div className="grid grid-cols-2 gap-2">
                 {selected.subtypes.map((sub) => {
                   const subName = (tSpecies as any)[sub.translationKey]?.name ?? sub.translationKey;
