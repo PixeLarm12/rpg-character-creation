@@ -6,21 +6,61 @@ export interface ArchetypeData {
 }
 
 export const archetypesData: ArchetypeData[] = [
-  { id: "warrior", translationKey: "warrior", attributes: { STR: 3, DEX: 0, INT: -1, PER: 0, RES: 2, CHA: -1 } },
-  { id: "bard", translationKey: "bard", attributes: { STR: -2, DEX: 1, INT: 1, PER: 1, RES: -1, CHA: 3 } },
-  { id: "priest", translationKey: "priest", attributes: { STR: -1, DEX: -1, INT: 2, PER: 2, RES: 0, CHA: 1 } },
-  { id: "paladin", translationKey: "paladin", attributes: { STR: 2, DEX: -1, INT: 0, PER: 0, RES: 3, CHA: 1 } },
-  { id: "explorer", translationKey: "explorer", attributes: { STR: 0, DEX: 2, INT: 0, PER: 2, RES: -1, CHA: -1 } },
-  { id: "diplomat", translationKey: "diplomat", attributes: { STR: -2, DEX: 0, INT: 2, PER: 1, RES: -1, CHA: 3 } },
-  { id: "assassin", translationKey: "assassin", attributes: { STR: 0, DEX: 3, INT: 0, PER: 2, RES: -2, CHA: -1 } },
-  { id: "mage", translationKey: "mage", attributes: { STR: -2, DEX: 0, INT: 3, PER: 1, RES: -1, CHA: 0 } },
-  { id: "hunter", translationKey: "hunter", attributes: { STR: 1, DEX: 2, INT: 0, PER: 3, RES: -1, CHA: -1 } },
-  { id: "berserker", translationKey: "berserker", attributes: { STR: 3, DEX: 1, INT: -2, PER: 0, RES: 2, CHA: -2 } },
-  { id: "rogue", translationKey: "rogue", attributes: { STR: -1, DEX: 3, INT: 1, PER: 2, RES: -2, CHA: 0 } },
-  { id: "guardian", translationKey: "guardian", attributes: { STR: 1, DEX: -2, INT: 0, PER: 0, RES: 3, CHA: 1 } },
-  { id: "monk", translationKey: "monk", attributes: { STR: 0, DEX: 2, INT: 1, PER: 2, RES: 1, CHA: 0 } },
-  { id: "alchemist", translationKey: "alchemist", attributes: { STR: -2, DEX: 1, INT: 3, PER: 1, RES: -1, CHA: 0 } },
-  { id: "leader", translationKey: "leader", attributes: { STR: 0, DEX: 0, INT: 1, PER: 1, RES: 1, CHA: 3 } },
+  {
+    id: "knight",
+    translationKey: "knight",
+    attributes: { STR: 3, DEX: -1, INT: -2, PER: -1, RES: 3, CHA: 0 },
+  },
+  {
+    id: "druid",
+    translationKey: "druid",
+    attributes: { STR: -2, DEX: -1, INT: 2, PER: 3, RES: 0, CHA: -1 },
+  },
+  {
+    id: "bard",
+    translationKey: "bard",
+    attributes: { STR: -2, DEX: 0, INT: 1, PER: 1, RES: -2, CHA: 3 },
+  },
+  {
+    id: "paladin",
+    translationKey: "paladin",
+    attributes: { STR: 2, DEX: -2, INT: -1, PER: 1, RES: 3, CHA: 1 },
+  },
+  {
+    id: "assassin",
+    translationKey: "assassin",
+    attributes: { STR: -1, DEX: 3, INT: 0, PER: 3, RES: -2, CHA: -2 },
+  },
+  {
+    id: "wizard",
+    translationKey: "wizard",
+    attributes: { STR: -2, DEX: -1, INT: 3, PER: 2, RES: -2, CHA: -2 },
+  },
+  {
+    id: "monk",
+    translationKey: "monk",
+    attributes: { STR: 0, DEX: 2, INT: 0, PER: 2, RES: 2, CHA: -2 },
+  },
+  {
+    id: "artificier",
+    translationKey: "artificier",
+    attributes: { STR: -2, DEX: 0, INT: 3, PER: 1, RES: 0, CHA: -2 },
+  },
+  {
+    id: "cleric",
+    translationKey: "cleric",
+    attributes: { STR: -1, DEX: -2, INT: 2, PER: 2, RES: 1, CHA: 0 },
+  },
+  {
+    id: "samurai",
+    translationKey: "samurai",
+    attributes: { STR: 2, DEX: 2, INT: -2, PER: 1, RES: 2, CHA: -1 },
+  },
+  {
+    id: "shaman",
+    translationKey: "shaman",
+    attributes: { STR: -2, DEX: -1, INT: 2, PER: 3, RES: 0, CHA: -2 },
+  },
 ];
 
 // Equipment packages
