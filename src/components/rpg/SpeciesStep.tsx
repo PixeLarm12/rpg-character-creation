@@ -9,7 +9,9 @@ export function SpeciesStep() {
 
   const selected = speciesData.find((s) => s.id === state.speciesId);
 
-  console.log("selected ", selected);
+  const selectedSubtype = selected?.subtypes?.find(
+    (sub) => sub.id === state.elfSubtypeId
+  );
 
   return (
     <div className="animate-fade-in space-y-6">
@@ -40,14 +42,14 @@ export function SpeciesStep() {
       {/* Selected species detail */}
       {selected && (
         <div className="rounded-lg border border-primary/20 bg-card p-4 animate-fade-in">
-          
+
           <div className="grid md:grid-cols-2 gap-4 items-center">
-            
+
             {/* IMAGE */}
             <div className="w-full h-full object-cover grayscale hover:grayscale-0 transition">
               <img
-                src={selected.image ?? `/images/species/${selected.id }.png`}
-                alt={selected.translationKey}
+                src={selectedSubtype?.image ?? selected.image}
+                alt={selectedSubtype?.translationKey ?? selected.translationKey}
                 className="w-full h-full object-cover"
               />
             </div>
