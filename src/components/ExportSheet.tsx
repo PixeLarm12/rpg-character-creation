@@ -7,6 +7,8 @@ type ExportSheetProps = {
     name: string;
     gender?: string;
     age?: number;
+    hp?: number;
+    mana?: number;
     height?: string;
     weight?: string;
     species?: string;
@@ -25,7 +27,7 @@ type ExportSheetProps = {
 };
 
 export function ExportSheet({ data }: ExportSheetProps) {
-  const { state, t, language } = useAppContext();
+  const { t, language } = useAppContext();
   const te = t.export;
   const ts = t.species;
   const tweights = t.basics.weights;
@@ -43,6 +45,12 @@ export function ExportSheet({ data }: ExportSheetProps) {
 
   const specie = speciesMap[data.species];
   const specieTranslated = ts[specie.translationKey];
+
+  const selectedSubtype = specie?.subtypes?.find(
+    (s) => s.id === data.elfSubtype
+  );
+
+  const imageSrc = selectedSubtype?.image ?? specie.image;
 
   const ageTranslated = tage[data.age];
   const weightTranslated = tweights[data.weight];
@@ -62,25 +70,43 @@ export function ExportSheet({ data }: ExportSheetProps) {
     <div className="p-10 bg-white text-black w-[794px] min-h-[1123px] font-serif">
 
       {/* HEADER */}
-      <div className="border-b-2 border-black pb-4 mb-6">
-        <h1 className="text-3xl font-bold tracking-wide">
-          {data.name || "Unnamed Character"}
-        </h1>
+      <div className="border-b-2 border-black pb-4 mb-6 flex justify-between items-start gap-6">
 
-        <div className="flex flex-wrap gap-6 mt-2 text-sm">
-          <span><strong>{te.species}:</strong> {specieTranslated.name ?? "-"}</span>
+        {/* LEFT SIDE */}
+        <div className="flex-1">
+          <h1 className="text-3xl font-bold tracking-wide">
+            {data.name || "Unnamed Character"}
+          </h1>
 
-          {elfSubtypeTranslated && (
-            <span><strong>{te.speciesSubtype}:</strong> {elfSubtypeTranslated.name}</span>
+          <div className="flex flex-wrap gap-6 mt-2 text-lg">
+            <span><strong>{te.species}:</strong> {specieTranslated.name ?? "-"}</span>
+
+            {elfSubtypeTranslated && (
+              <span><strong>{te.speciesSubtype}:</strong> {elfSubtypeTranslated.name}</span>
+            )}
+
+            <span><strong>{te.age}:</strong> {ageTranslated ?? "-"}</span>
+            <span><strong>{te.gender}:</strong> {genderTranslated ?? "-"}</span>
+            <div><strong>{te.height}:</strong> {heightTranslated ?? "-"}</div>
+            <div><strong>{te.weight}:</strong> {weightTranslated ?? "-"}</div>
+          </div>
+
+          <div className="flex flex-wrap gap-6 mt-2 text-lg">
+            <span><i>{passiveTranslated}</i></span>
+          </div>
+        </div>
+
+        {/* IMAGE */}
+        <div className="w-40 h-40 border border-black overflow-hidden flex-shrink-0">
+          {imageSrc && (
+            <img
+              src={imageSrc}
+              alt="Character"
+              className="w-full h-full object-cover"
+            />
           )}
-
-          <span><strong>{te.age}:</strong> {ageTranslated ?? "-"}</span>
-          <span><strong>{te.gender}:</strong> {genderTranslated ?? "-"}</span>
         </div>
 
-        <div className="flex flex-wrap gap-6 mt-2 text-sm">
-          <span><i>{passiveTranslated}</i></span>
-        </div>
       </div>
 
       {/* GRID */}
@@ -89,12 +115,12 @@ export function ExportSheet({ data }: ExportSheetProps) {
         {/* LEFT */}
         <div className="space-y-6">
 
-          {/* PHYSICAL */}
+          {/* HP & MANA */}
           <div className="border border-black p-4">
-            <h2 className="font-bold text-lg mb-2">{te.physicalInfo}</h2>
-            <div className="text-sm space-y-1">
-              <div><strong>{te.height}:</strong> {heightTranslated ?? "-"}</div>
-              <div><strong>{te.weight}:</strong> {weightTranslated ?? "-"}</div>
+            <h2 className="font-bold text-lg mb-2">{te.hp} & {te.mana}</h2>
+            <div className="text-lg space-y-1">
+              <div><strong>{te.hp}:</strong> {data.hp ?? "0"}/{data.hp ?? "0"}</div>
+              <div><strong>{te.mana}:</strong> {data.mana ?? "0"}/{data.mana ?? "0"}</div>
             </div>
           </div>
 
@@ -102,7 +128,7 @@ export function ExportSheet({ data }: ExportSheetProps) {
           <div className="border border-black p-4">
             <h2 className="font-bold text-lg mb-2">{te.attributes}</h2>
 
-            <div className="grid grid-cols-2 gap-2 text-sm">
+            <div className="grid grid-cols-2 gap-2 text-lg">
               {Object.entries(data.attributes || {}).map(([k, v]) => (
                 <div key={k} className="flex flex-col">
                   <div className="flex justify-left">
@@ -120,7 +146,7 @@ export function ExportSheet({ data }: ExportSheetProps) {
           <div className="border border-black p-4">
             <h2 className="font-bold text-lg mb-2">{te.wealth}</h2>
 
-            <div className="grid grid-cols-2 gap-2 text-sm">
+            <div className="grid grid-cols-2 gap-2 text-lg">
               <div>{te.copper}: {data.wealth?.copper ?? 0}</div>
               <div>{te.silver}: {data.wealth?.silver ?? 0}</div>
               <div>{te.gold}: {data.wealth?.gold ?? 0}</div>
@@ -137,7 +163,7 @@ export function ExportSheet({ data }: ExportSheetProps) {
           <div className="border border-black p-4">
             <h2 className="font-bold text-lg mb-2">{te.talents}</h2>
 
-            <div className="text-sm space-y-3">
+            <div className="text-lg space-y-3">
 
               {/* POSITIVE */}
               <div>
@@ -192,7 +218,7 @@ export function ExportSheet({ data }: ExportSheetProps) {
           <div className="border border-black p-4">
             <h2 className="font-bold text-lg mb-2">{te.equipament}</h2>
 
-            <div className="text-sm space-y-1">
+            <div className="text-lg space-y-1">
               {data.equipment?.length ? (
                 data.equipment.map((e, i) => (
                   <div key={i}>• {e}</div>

@@ -10,8 +10,8 @@ export function EquipmentStep() {
   return (
     <div className="animate-fade-in space-y-6">
       <div>
-        <h2 className="font-display text-2xl text-gold-gradient">{te.title}</h2>
-        <p className="mt-1 text-sm text-muted-foreground">{te.desc}</p>
+        <h2 className="font-display text-2xl md:text-4xl text-gold-gradient">{te.title}</h2>
+        <p className="mt-1 text-lg text-muted-foreground">{te.desc}</p>
       </div>
 
       {/* Packages */}
@@ -32,8 +32,8 @@ export function EquipmentStep() {
                 <Package className="h-4 w-4 text-primary" />
                 <span className="font-display">{label}</span>
               </div>
-              <p className="mt-1 text-xs text-muted-foreground">{desc}</p>
-              <ul className="mt-2 space-y-1 text-xs">
+              <p className="mt-1  text-muted-foreground">{desc}</p>
+              <ul className="mt-2 space-y-1 ">
                 {pkg.items.map((item, i) => (
                   <li key={i} className="flex items-center gap-1.5">
                     <CheckCircle className="h-3 w-3 text-primary" />
@@ -48,8 +48,8 @@ export function EquipmentStep() {
 
       {/* Default items */}
       <div className="rounded-lg border border-border bg-muted p-4">
-        <h3 className="font-display text-sm text-primary">{te.defaultItems}</h3>
-        <div className="mt-2 grid grid-cols-2 gap-1 text-xs text-muted-foreground sm:grid-cols-4">
+        <h3 className="font-display text-lg text-primary">{te.defaultItems}</h3>
+        <div className="mt-2 grid grid-cols-2 gap-1  text-muted-foreground sm:grid-cols-4">
           {defaultEquipment.map((item, i) => (
             <span key={i} className="flex items-center gap-1">
               <span className="text-primary">•</span>
