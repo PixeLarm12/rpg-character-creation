@@ -1,7 +1,7 @@
 import { useAppContext } from "@/context/AppContext";
 import { archetypesData } from "@/data/equipment";
 import { speciesData } from "@/data/species";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, Dices } from "lucide-react";
 import { useCallback, useMemo, useEffect } from "react";
 
 const MAIN_ATTRS = ["CHA", "INT", "DEX", "PER", "STR", "RES"] as const;
@@ -9,12 +9,38 @@ const FIXED_ATTRS = ["COR", "EXA"] as const;
 
 /** Step 3: Attribute assignment with 3 methods */
 export function AttributesStep() {
-  const { state, dispatch, t, language } = useAppContext();
+  const { state, dispatch, t } = useAppContext();
   const ta = t.attributes;
 
   const species = speciesData.find((s) => s.id === state.speciesId);
   const subtype = species?.subtypes?.find((s) => s.id === state.elfSubtypeId);
   const bonusAttr = subtype?.attributeBonus ?? species?.attributeBonus;
+
+  const roll3d6Min8 = () => {
+    let total = 0;
+    do {
+      total =
+        Math.ceil(Math.random() * 6) +
+        Math.ceil(Math.random() * 6) +
+        Math.ceil(Math.random() * 6);
+    } while (total < 8);
+    return total;
+  };
+
+  const rollStats = useCallback(() => {
+    dispatch({
+      type: "SET_HP_MANA",
+      hp: roll3d6Min8(),
+      mana: roll3d6Min8(),
+    });
+  }, [dispatch]);
+
+  // Auto-roll inicial
+  useEffect(() => {
+    if (!state.hp || !state.mana) {
+      rollStats();
+    }
+  }, [state.hp, state.mana, rollStats]);
 
   const methodBtns: { key: "points" | "archetype"; label: string; desc: string }[] = [
     { key: "points", label: ta.method2, desc: ta.method2Desc },
@@ -28,6 +54,34 @@ export function AttributesStep() {
         <p className="mt-1 text-lg text-muted-foreground">{ta.desc}</p>
       </div>
 
+      {/* HP / MANA */}
+      <div className="rounded-lg border border-primary/20 bg-card p-4 space-y-3">
+        <h3 className="text-lg font-display text-primary">Vida & Mana</h3>
+
+        <div className="flex items-center gap-6 text-lg">
+          <div>
+            <strong>HP:</strong> {state.hp ?? "-"}
+          </div>
+
+          <div>
+            <strong>Mana:</strong> {state.mana ?? "-"}
+          </div>
+
+          <button
+            onClick={rollStats}
+            className="ml-auto flex items-center gap-2 rounded-md border border-border px-3 py-1 hover:bg-secondary transition"
+          >
+            <Dices className="h-4 w-4" />
+            Reroll
+          </button>
+        </div>
+
+        <p className="text-muted-foreground text-sm">
+          Valores definidos por 3d6 (mínimo 8)
+        </p>
+      </div>
+
+      {/* METHOD */}
       <div className="space-y-2">
         <h3 className="text-lg font-display text-primary">{ta.methodTitle}</h3>
         <div className="grid gap-2 sm:grid-cols-3">
@@ -40,14 +94,14 @@ export function AttributesStep() {
               `}
             >
               <div className="font-display">{m.label}</div>
-              <div className="mt-1  text-muted-foreground">{m.desc}</div>
+              <div className="mt-1 text-muted-foreground">{m.desc}</div>
             </button>
           ))}
         </div>
       </div>
 
       {bonusAttr && (
-        <p className=" text-muted-foreground">
+        <p className="text-muted-foreground">
           {ta.speciesBonus}: {bonusAttr.attribute} +{bonusAttr.value}
         </p>
       )}
@@ -110,7 +164,6 @@ function PointsMethod() {
       const next = current + dir;
 
       if (next > 3 || next < -2) return;
-
       if (dir > 0 && remaining <= 0) return;
 
       dispatch({
@@ -211,7 +264,7 @@ function ArchetypeMethod() {
             >
               <div className="font-display text-lg">{label}</div>
 
-              <div className="mt-1 flex flex-wrap gap-1  text-muted-foreground">
+              <div className="mt-1 flex flex-wrap gap-1 text-muted-foreground">
                 {MAIN_ATTRS.map((a) => (
                   <span key={a}>
                     {a}:{arch.attributes[a] ?? 0}
