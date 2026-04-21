@@ -52,7 +52,7 @@ export const en = {
     weights: { frail: "Frail", light: "Light", balanced: "Balanced", overweight: "Overweight", heavy: "Heavy" },
     heights: { short: "Short", medium: "Medium", tall: "Tall" },
     ages: { young: "Young", adult: "Adult", middleAged: "Middle-aged", elder: "Elder" },
-    genders: { male: "Male", female: "Female", undefined: "Undefined", other: "Other" },
+    genders: { male: "Male", female: "Female", undefined: "Undefined", other: "Other" }
   },
   attributes: {
     title: "Assign Attributes",
@@ -67,6 +67,10 @@ export const en = {
     adjustmentRemaining: "adjustment remaining",
     maxReached: "Maximum +3 reached",
     selectArchetype: "Select an Archetype",
+    hp: "HP",
+    mana: "Mana",
+    lifeRule: "Values defined by 3d6 (minimum: 8)",
+    reroll: "Reroll", 
     archetypes: {
       knight: "Knight",
       druid: "Druid",
@@ -166,5 +170,7 @@ export const en = {
     negative: "Negative",
     equipament: "Equipament",
     notes: "Notes",
+    hp: "HP",
+    mana: "MANA",
   }
 };

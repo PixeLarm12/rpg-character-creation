@@ -52,7 +52,7 @@ export const ptBr = {
     weights: { frail: "Raquítico", light: "Leve", balanced: "Equilibrado", overweight: "Acima do peso", heavy: "Pesado" },
     heights: { short: "Baixo", medium: "Médio", tall: "Alto" },
     ages: { young: "Jovem", adult: "Adulto", middleAged: "Meia-idade", elder: "Idoso" },
-    genders: { male: "Masculino", female: "Feminino", undefined: "Indefinido", other: "Outro" },
+    genders: { male: "Masculino", female: "Feminino", undefined: "Indefinido", other: "Outro" }
   },
   attributes: {
     title: "Atribuir Atributos",
@@ -67,6 +67,10 @@ export const ptBr = {
     adjustmentRemaining: "ajuste restante",
     maxReached: "Máximo +3 atingido",
     selectArchetype: "Selecione um Arquétipo",
+    hp: "VIDA",
+    mana: "Mana",
+    lifeRule: "Valores definidos por 3d6 (mínimo: 8)",
+    reroll: "Rolar", 
     archetypes: {
       knight: "Cavaleiro",
       druid: "Druída",
@@ -152,7 +156,6 @@ export const ptBr = {
     speciesSubtype: "Subtipo",
     age: "Idade",
     gender: "Gênero",
-    physicalInfo: "Físico",
     height: "Altura",
     weight: "Peso",
     attributes: "Atributos",
@@ -166,5 +169,7 @@ export const ptBr = {
     negative: "Negativos",
     equipament: "Equipamento",
     notes: "Anotações",
+    hp: "VIDA",
+    mana: "MANA",
   }
 };

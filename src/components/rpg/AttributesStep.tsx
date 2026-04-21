@@ -56,15 +56,15 @@ export function AttributesStep() {
 
       {/* HP / MANA */}
       <div className="rounded-lg border border-primary/20 bg-card p-4 space-y-3">
-        <h3 className="text-lg font-display text-primary">Vida & Mana</h3>
+        <h3 className="text-lg font-display text-primary">{ ta.hp } & { ta.mana }</h3>
 
         <div className="flex items-center gap-6 text-lg">
           <div>
-            <strong>HP:</strong> {state.hp ?? "-"}
+            <strong>{ ta.hp }: </strong> {state.hp ?? "-"}/{state.hp ?? "-"}
           </div>
 
           <div>
-            <strong>Mana:</strong> {state.mana ?? "-"}
+            <strong>{ ta.mana }: </strong> {state.mana ?? "-"}/{state.mana ?? "-"}
           </div>
 
           <button
@@ -72,12 +72,12 @@ export function AttributesStep() {
             className="ml-auto flex items-center gap-2 rounded-md border border-border px-3 py-1 hover:bg-secondary transition"
           >
             <Dices className="h-4 w-4" />
-            Reroll
+            { ta.reroll }
           </button>
         </div>
 
         <p className="text-muted-foreground text-sm">
-          Valores definidos por 3d6 (mínimo 8)
+          { ta.lifeRule }
         </p>
       </div>
 

@@ -7,6 +7,8 @@ type ExportSheetProps = {
     name: string;
     gender?: string;
     age?: number;
+    hp?: number;
+    mana?: number;
     height?: string;
     weight?: string;
     species?: string;
@@ -85,6 +87,8 @@ export function ExportSheet({ data }: ExportSheetProps) {
 
             <span><strong>{te.age}:</strong> {ageTranslated ?? "-"}</span>
             <span><strong>{te.gender}:</strong> {genderTranslated ?? "-"}</span>
+            <div><strong>{te.height}:</strong> {heightTranslated ?? "-"}</div>
+            <div><strong>{te.weight}:</strong> {weightTranslated ?? "-"}</div>
           </div>
 
           <div className="flex flex-wrap gap-6 mt-2 text-lg">
@@ -111,12 +115,12 @@ export function ExportSheet({ data }: ExportSheetProps) {
         {/* LEFT */}
         <div className="space-y-6">
 
-          {/* PHYSICAL */}
+          {/* HP & MANA */}
           <div className="border border-black p-4">
-            <h2 className="font-bold text-lg mb-2">{te.physicalInfo}</h2>
+            <h2 className="font-bold text-lg mb-2">{te.hp} & {te.mana}</h2>
             <div className="text-lg space-y-1">
-              <div><strong>{te.height}:</strong> {heightTranslated ?? "-"}</div>
-              <div><strong>{te.weight}:</strong> {weightTranslated ?? "-"}</div>
+              <div><strong>{te.hp}:</strong> {data.hp ?? "0"}/{data.hp ?? "0"}</div>
+              <div><strong>{te.mana}:</strong> {data.mana ?? "0"}/{data.mana ?? "0"}</div>
             </div>
           </div>
 
