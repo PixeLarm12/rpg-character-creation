@@ -19,13 +19,13 @@ export function TalentsStep() {
   ) => (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <h3 className="font-display text-sm text-primary">{label}</h3>
-        <span className="text-xs text-muted-foreground">
+        <h3 className="font-display text-lg text-primary">{label}</h3>
+        <span className=" text-muted-foreground">
           {selected.length}/2 {tt.selected}
         </span>
       </div>
 
-      <p className="text-xs text-muted-foreground">{hint}</p>
+      <p className=" text-muted-foreground">{hint}</p>
 
       <div className="grid gap-2 sm:grid-cols-2">
         {items.map((talent) => {
@@ -55,7 +55,7 @@ export function TalentsStep() {
                   talentType: type,
                 });
               }}
-              className={`flex items-start gap-2 rounded-md border p-3 text-left text-sm transition-all
+              className={`flex items-start gap-2 rounded-md border p-3 text-left text-lg transition-all
                 ${
                   active
                     ? "border-primary bg-secondary"
@@ -96,7 +96,7 @@ export function TalentsStep() {
                     : talent.name}
                 </div>
 
-                <div className="mt-0.5 text-xs text-muted-foreground">
+                <div className="mt-0.5  text-muted-foreground">
                   {language === "pt-br"
                     ? talent.descriptionPtBr
                     : talent.description}
@@ -112,10 +112,10 @@ export function TalentsStep() {
   return (
     <div className="animate-fade-in space-y-6">
       <div>
-        <h2 className="font-display text-2xl text-gold-gradient">
+        <h2 className="font-display text-2xl md:text-4xl text-gold-gradient">
           {tt.title}
         </h2>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <p className="mt-1 text-lg text-muted-foreground">
           {tt.desc}
         </p>
       </div>

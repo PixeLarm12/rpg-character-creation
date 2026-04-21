@@ -1,12 +1,3 @@
-export interface TalentData {
-  id: string;
-  name: string;
-  namePtBr: string;
-  description: string;
-  descriptionPtBr: string;
-  type: "positive" | "negative";
-}
-
 const baseTalents = [
   {
     id: 1,
@@ -45,8 +36,8 @@ const baseTalents = [
   },
   {
     id: 6,
-    name: "Weapon proficiency",
-    namePtBr: "Perícia com arma específica",
+    name: "Weapon proficiency (one specific)",
+    namePtBr: "Perícia com arma (uma específica)",
     description: "Skill with a specific type of weapon.",
     descriptionPtBr: "Habilidade com um tipo específico de arma."
   },
@@ -74,7 +65,7 @@ const baseTalents = [
   {
     id: 10,
     name: "Delicate handling",
-    namePtBr: "Manuseio frágil",
+    namePtBr: "Manuseio delicado",
     description: "Handling fragile or sensitive objects.",
     descriptionPtBr: "Manusear objetos frágeis ou sensíveis."
   },
@@ -143,252 +134,212 @@ const baseTalents = [
   },
   {
     id: 20,
-    name: "Improvisation",
-    namePtBr: "Improvisação",
-    description: "Adapting quickly to unexpected situations.",
-    descriptionPtBr: "Adaptar-se rapidamente a situações inesperadas."
-  },
-  {
-    id: 21,
     name: "Strategic planning",
     namePtBr: "Planejamento estratégico",
     description: "Planning ahead with tactical thinking.",
     descriptionPtBr: "Planejar com pensamento tático."
   },
   {
-    id: 22,
+    id: 21,
     name: "Traps",
     namePtBr: "Armadilhas",
     description: "Setting or detecting traps.",
     descriptionPtBr: "Criar ou detectar armadilhas."
   },
   {
-    id: 23,
+    id: 22,
     name: "History",
     namePtBr: "História",
     description: "Knowledge about past events.",
     descriptionPtBr: "Conhecimento sobre eventos passados."
   },
   {
-    id: 24,
+    id: 23,
     name: "Medicine",
     namePtBr: "Medicina",
     description: "Treating wounds and illnesses.",
     descriptionPtBr: "Tratar ferimentos e doenças."
   },
   {
-    id: 25,
+    id: 24,
     name: "Biology",
     namePtBr: "Biologia",
     description: "Understanding living organisms.",
     descriptionPtBr: "Entender organismos vivos."
   },
   {
-    id: 26,
+    id: 25,
     name: "Chemistry",
     namePtBr: "Química",
     description: "Knowledge of substances and reactions.",
     descriptionPtBr: "Conhecimento de substâncias e reações."
   },
   {
-    id: 27,
+    id: 26,
     name: "Mechanics",
     namePtBr: "Mecânica",
     description: "Working with machines and devices.",
     descriptionPtBr: "Trabalhar com máquinas e dispositivos."
   },
   {
-    id: 28,
+    id: 27,
     name: "Art",
     namePtBr: "Arte",
     description: "Creating or understanding artistic expressions.",
     descriptionPtBr: "Criar ou entender expressões artísticas."
   },
   {
-    id: 29,
+    id: 28,
     name: "Cartography",
     namePtBr: "Cartografia",
     description: "Reading and creating maps.",
     descriptionPtBr: "Ler e criar mapas."
   },
   {
-    id: 30,
+    id: 29,
     name: "Religion",
     namePtBr: "Religião",
     description: "Knowledge of beliefs and rituals.",
     descriptionPtBr: "Conhecimento de crenças e rituais."
   },
   {
-    id: 31,
+    id: 30,
     name: "Driving",
-    namePtBr: "Condução (pilotagem)",
+    namePtBr: "Pilotagem",
     description: "Operating vehicles or mounts.",
     descriptionPtBr: "Operar veículos ou montarias."
   },
   {
-    id: 32,
-    name: "Lie detection",
-    namePtBr: "Pegar mentiras",
-    description: "Detecting lies in others.",
-    descriptionPtBr: "Detectar mentiras em outras pessoas."
-  },
-  {
-    id: 33,
+    id: 31,
     name: "Orientation",
-    namePtBr: "Orientação (geolocalização)",
+    namePtBr: "Orientação",
     description: "Navigating and finding directions.",
     descriptionPtBr: "Navegar e encontrar direções."
   },
   {
-    id: 34,
+    id: 32,
     name: "Expression analysis",
     namePtBr: "Análise de expressão",
     description: "Reading facial and body expressions.",
     descriptionPtBr: "Ler expressões faciais e corporais."
   },
   {
-    id: 35,
+    id: 33,
     name: "Enhanced hearing",
     namePtBr: "Audição apurada",
     description: "Heightened sense of hearing.",
     descriptionPtBr: "Sentido auditivo aprimorado."
   },
   {
-    id: 36,
+    id: 34,
     name: "Enhanced vision",
     namePtBr: "Visão apurada",
     description: "Heightened sense of sight.",
     descriptionPtBr: "Sentido visual aprimorado."
   },
   {
-    id: 37,
+    id: 35,
     name: "Empathy",
     namePtBr: "Empatia",
     description: "Understanding others' emotions.",
     descriptionPtBr: "Entender emoções alheias."
   },
   {
-    id: 38,
+    id: 36,
     name: "Poisons",
     namePtBr: "Venenos",
-    description: "Using or شناخت poisons.",
+    description: "Using or recognizing poisons.",
     descriptionPtBr: "Usar ou reconhecer venenos."
   },
   {
-    id: 39,
+    id: 37,
     name: "Diseases",
     namePtBr: "Doenças",
     description: "Knowledge about illnesses.",
     descriptionPtBr: "Conhecimento sobre doenças."
   },
   {
-    id: 40,
+    id: 38,
     name: "Physical fatigue",
     namePtBr: "Fadiga física",
     description: "Resistance to physical exhaustion.",
     descriptionPtBr: "Resistência ao cansaço físico."
   },
   {
-    id: 41,
+    id: 39,
     name: "Pain resistance",
-    namePtBr: "Dor",
+    namePtBr: "Resistência à dor",
     description: "Tolerance to pain.",
     descriptionPtBr: "Tolerância à dor."
   },
   {
-    id: 42,
+    id: 40,
     name: "Extreme survival",
     namePtBr: "Sobrevivência em extremos",
     description: "Surviving harsh environments.",
     descriptionPtBr: "Sobreviver em ambientes extremos."
   },
   {
-    id: 43,
-    name: "Advanced survival",
-    namePtBr: "Sobrevivência extrema",
-    description: "Mastery of survival skills.",
-    descriptionPtBr: "Domínio de habilidades de sobrevivência."
-  },
-  {
-    id: 44,
+    id: 41,
     name: "Mental fatigue",
     namePtBr: "Fadiga mental",
     description: "Resistance to mental exhaustion.",
     descriptionPtBr: "Resistência ao cansaço mental."
   },
   {
-    id: 45,
+    id: 42,
     name: "Persuasion",
     namePtBr: "Persuasão",
     description: "Convincing others through argument.",
     descriptionPtBr: "Convencer outros através de argumentos."
   },
   {
-    id: 46,
+    id: 43,
     name: "Bluff",
     namePtBr: "Blefe",
     description: "Deceiving others intentionally.",
     descriptionPtBr: "Enganar outros intencionalmente."
   },
   {
-    id: 47,
+    id: 44,
     name: "Negotiation",
-    namePtBr: "Negociação",
+    namePtBr: "Negociação comercial",
     description: "Reaching agreements between parties.",
     descriptionPtBr: "Chegar a acordos entre partes."
   },
   {
-    id: 48,
+    id: 45,
     name: "Intimidation",
     namePtBr: "Intimidação",
     description: "Forcing others through fear.",
     descriptionPtBr: "Forçar outros através do medo."
   },
   {
-    id: 49,
+    id: 46,
     name: "Inspiration",
     namePtBr: "Inspiração",
     description: "Motivating others positively.",
     descriptionPtBr: "Motivar outros positivamente."
   },
   {
-    id: 50,
+    id: 47,
     name: "Leadership",
     namePtBr: "Liderança",
     description: "Guiding and commanding others.",
     descriptionPtBr: "Guiar e comandar outros."
   },
   {
-    id: 51,
+    id: 48,
     name: "Performance",
     namePtBr: "Performance",
     description: "Entertaining or performing publicly.",
     descriptionPtBr: "Entreter ou se apresentar em público."
   },
   {
-    id: 52,
+    id: 49,
     name: "Seduction",
     namePtBr: "Sedução",
     description: "Attracting others romantically or socially.",
     descriptionPtBr: "Atrair outros romanticamente ou socialmente."
   }
-]
-
-export const talentsData: TalentData[] = baseTalents.flatMap(talent => [
-  {
-    id: `${talent.id}`,
-    name: talent.name,
-    namePtBr: talent.namePtBr,
-    description: talent.description,
-    descriptionPtBr: talent.descriptionPtBr,
-    type: "positive",
-  },
-  {
-    id: `${talent.id}`,
-    name: talent.name,
-    namePtBr: talent.namePtBr,
-    description: talent.description,
-    descriptionPtBr: talent.descriptionPtBr,
-    type: "negative",
-  }
-]);
+];

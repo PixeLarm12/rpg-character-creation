@@ -13,6 +13,8 @@ export interface CharacterState {
   height: string;
   age: string;
   // Step 3
+  hp: number | null;
+  mana: number | null;
   attributeMethod: "points" | "archetype" | null;
   attributes: Record<string, number>;
   archetypeId: string | null;
@@ -28,6 +30,7 @@ export interface CharacterState {
 export type CharacterAction =
   | { type: "SET_SPECIES"; speciesId: string; elfSubtypeId?: string | null }
   | { type: "SET_BASICS"; field: string; value: string }
+  | { type: "SET_HP_MANA"; hp: number; mana: number }
   | { type: "SET_ATTRIBUTE_METHOD"; method: "points" | "archetype" }
   | { type: "SET_ATTRIBUTES"; attributes: Record<string, number> }
   | { type: "SET_ARCHETYPE"; archetypeId: string; attributes: Record<string, number> }
@@ -48,6 +51,8 @@ export const initialState: CharacterState = {
   weight: "",
   height: "",
   age: "",
+  hp: null,
+  mana: null,
   attributeMethod: null,
   attributes: { ...initialAttributes },
   archetypeId: null,
@@ -64,6 +69,12 @@ function characterReducer(state: CharacterState, action: CharacterAction): Chara
       return { ...state, speciesId: action.speciesId, elfSubtypeId: action.elfSubtypeId ?? null };
     case "SET_BASICS":
       return { ...state, [action.field]: action.value };
+    case "SET_HP_MANA":
+      return {
+        ...state,
+        hp: action.hp,
+        mana: action.mana,
+      };
     case "SET_ATTRIBUTE_METHOD":
       return {
         ...state,

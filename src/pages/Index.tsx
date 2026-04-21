@@ -30,6 +30,8 @@ function CharacterCreator() {
         if (!state.age) { toast.error(t.validation.selectAge); return false; }
         return true;
       case 2:
+        if (!state.hp) { toast.error(t.validation.hp); return false; }
+        if (!state.mana) { toast.error(t.validation.mana); return false; }
         if (!state.attributeMethod) { toast.error(t.validation.attributeMethod); return false; }
         if (state.attributeMethod === "archetype" && !state.archetypeId) { toast.error(t.validation.distributeAll); return false; }
         return true;
@@ -91,7 +93,7 @@ function CharacterCreator() {
         <button
           onClick={back}
           disabled={currentStep === 0}
-          className="flex items-center gap-1 rounded-md border border-border bg-secondary px-4 py-2 font-display text-sm text-secondary-foreground transition-all hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed"
+          className="flex items-center gap-1 rounded-md border border-border bg-secondary px-4 py-2 font-display text-lg text-secondary-foreground transition-all hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed"
         >
           <ChevronLeft className="h-4 w-4" />
           {t.nav.back}
@@ -99,7 +101,7 @@ function CharacterCreator() {
         {currentStep < TOTAL_STEPS - 1 && (
           <button
             onClick={next}
-            className="flex items-center gap-1 rounded-md bg-primary px-4 py-2 font-display text-sm text-primary-foreground transition-all hover:opacity-90 glow-gold"
+            className="flex items-center gap-1 rounded-md bg-primary px-4 py-2 font-display text-lg text-primary-foreground transition-all hover:opacity-90 glow-gold"
           >
             {t.nav.next}
             <ChevronRight className="h-4 w-4" />

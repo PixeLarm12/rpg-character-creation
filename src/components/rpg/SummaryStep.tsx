@@ -8,7 +8,7 @@ import { Download } from "lucide-react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
-/** Step 7: Summary + JSON export */
+/** Step 7: Summary + PDF export */
 export function SummaryStep() {
   const { state, t, language } = useAppContext();
   const ts = t.summary;
@@ -46,6 +46,8 @@ export function SummaryStep() {
     weight: state.weight,
     height: state.height,
     age: state.age,
+    hp: state.hp,
+    mana: state.mana,
     species: species?.id,
     elfSubtype: subtype?.id ?? null,
     attributes: state.attributes,
@@ -53,16 +55,6 @@ export function SummaryStep() {
     negativeTalents: negTalents, 
     wealth: { copper: 200, silver: 100, gold: 50, platinum: 0 },
     equipment: allEquipment,
-  };
-
-  const downloadJSON = () => {
-    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${state.name || "character"}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
   };
 
   const downloadPDF = async () => {
@@ -82,12 +74,12 @@ export function SummaryStep() {
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
     pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-    pdf.save(`${state.name || "character"}.pdf`);
+    pdf.save(`${state.name || "character"}_${language}.pdf`);
   };
 
   const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
     <div className="rounded-lg border border-border bg-card p-4 space-y-2">
-      <h3 className="font-display text-sm text-primary">{title}</h3>
+      <h3 className="font-display text-lg text-primary">{title}</h3>
       {children}
     </div>
   );
@@ -98,13 +90,13 @@ export function SummaryStep() {
       {/* UI normal */}
       <div id="character-sheet">
         <div>
-          <h2 className="font-display text-2xl text-gold-gradient">{ts.title}</h2>
-          <p className="mt-1 text-sm text-muted-foreground">{ts.desc}</p>
+          <h2 className="font-display text-2xl md:text-4xl text-gold-gradient">{ts.title}</h2>
+          <p className="mt-1 text-lg text-muted-foreground">{ts.desc}</p>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <Section title={ts.characterInfo}>
-            <div className="grid grid-cols-2 gap-1 text-sm">
+            <div className="grid grid-cols-2 gap-1 text-lg">
               <span className="text-muted-foreground">{t.basics.name}:</span><span>{state.name || "—"}</span>
               <span className="text-muted-foreground">{t.basics.gender}:</span><span>{state.gender ? (t.basics.genders as any)[state.gender] : "—"}</span>
               <span className="text-muted-foreground">{t.basics.weight}:</span><span>{state.weight ? (t.basics.weights as any)[state.weight] : "—"}</span>
@@ -114,12 +106,15 @@ export function SummaryStep() {
           </Section>
 
           <Section title={ts.speciesInfo}>
-            <p className="text-sm">{getSpeciesName()}</p>
-            <p className="text-xs text-muted-foreground">{passive}</p>
+            <p className="text-lg">{getSpeciesName()}</p>
+            <p className=" text-muted-foreground">{passive}</p>
           </Section>
 
           <Section title={ts.attributesInfo}>
-            <div className="grid grid-cols-2 gap-1 text-sm">
+            <div className="grid grid-cols-2 gap-1 text-lg">
+              <span className="text-muted-foreground">{t.attributes.hp} <span className="font-bold text-primary">{state.hp}/{state.hp}</span> </span>
+              <span className="text-muted-foreground">{t.attributes.mana} <span className="font-bold text-primary">{state.mana}/{state.mana}</span></span>
+              
               {Object.entries(state.attributes).map(([k, v]) => (
                 <div key={k} className="flex justify-between">
                   <span className="text-muted-foreground">{(t.attributes.names as any)[k] ?? k}</span>
@@ -130,7 +125,7 @@ export function SummaryStep() {
           </Section>
 
           <Section title={ts.talentsInfo}>
-            <div className="space-y-1 text-sm">
+            <div className="space-y-1 text-lg">
               {posTalents.map((tl) => (
                 <div key={tl.id} className="text-emerald">
                   + {language === "pt-br" ? tl.namePtBr : tl.name}
@@ -145,7 +140,7 @@ export function SummaryStep() {
           </Section>
 
           <Section title={ts.wealthInfo}>
-            <div className="grid grid-cols-2 gap-1 text-sm">
+            <div className="grid grid-cols-2 gap-1 text-lg">
               <span className="text-muted-foreground">{t.wealth.copper}:</span><span>200</span>
               <span className="text-muted-foreground">{t.wealth.silver}:</span><span>100</span>
               <span className="text-muted-foreground">{t.wealth.gold}:</span><span>50</span>
@@ -154,7 +149,7 @@ export function SummaryStep() {
           </Section>
 
           <Section title={ts.equipmentInfo}>
-            <ul className="space-y-0.5 text-xs">
+            <ul className="space-y-0.5 ">
               {allEquipment.map((item, i) => (
                 <li key={i}>• {item}</li>
               ))}
@@ -173,16 +168,8 @@ export function SummaryStep() {
       {/* BOTÕES */}
       <div className="flex gap-3">
         <button
-          onClick={downloadJSON}
-          className="flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm text-primary-foreground"
-        >
-          <Download className="h-4 w-4" />
-          JSON
-        </button>
-
-        <button
           onClick={downloadPDF}
-          className="flex items-center gap-2 rounded-lg bg-secondary px-6 py-3 text-sm text-primary"
+          className="flex items-center gap-2 rounded-lg bg-secondary px-6 py-3 text-lg text-primary"
         >
           <Download className="h-4 w-4" />
           PDF
