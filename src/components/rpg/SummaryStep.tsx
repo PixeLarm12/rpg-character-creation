@@ -8,7 +8,7 @@ import { Download } from "lucide-react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
-/** Step 7: Summary + JSON export */
+/** Step 7: Summary + PDF export */
 export function SummaryStep() {
   const { state, t, language } = useAppContext();
   const ts = t.summary;
@@ -53,16 +53,6 @@ export function SummaryStep() {
     negativeTalents: negTalents, 
     wealth: { copper: 200, silver: 100, gold: 50, platinum: 0 },
     equipment: allEquipment,
-  };
-
-  const downloadJSON = () => {
-    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${state.name || "character"}${language}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
   };
 
   const downloadPDF = async () => {
@@ -172,14 +162,6 @@ export function SummaryStep() {
 
       {/* BOTÕES */}
       <div className="flex gap-3">
-        <button
-          onClick={downloadJSON}
-          className="flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm text-primary-foreground"
-        >
-          <Download className="h-4 w-4" />
-          JSON
-        </button>
-
         <button
           onClick={downloadPDF}
           className="flex items-center gap-2 rounded-lg bg-secondary px-6 py-3 text-sm text-primary"
