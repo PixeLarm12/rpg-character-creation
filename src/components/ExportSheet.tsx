@@ -23,6 +23,7 @@ type ExportSheetProps = {
       platinum: number;
     };
     equipment: string[];
+    notes: string;
   };
 };
 
@@ -60,182 +61,160 @@ export function ExportSheet({ data }: ExportSheetProps) {
 
   const passiveTranslated = specie.hasSubtypes
     ? (language === "pt-br"
-      ? specie.subtypes.filter((s) => s.id == data.elfSubtype)[0]?.passivePtBr
-      : specie.subtypes.filter((s) => s.id == data.elfSubtype)[0]?.passive)
+      ? specie.subtypes.find(s => s.id == data.elfSubtype)?.passivePtBr
+      : specie.subtypes.find(s => s.id == data.elfSubtype)?.passive)
     : (language === "pt-br"
       ? specie.passivePtBr
       : specie.passive);
 
+  const renderNotes = () => {
+    if (!data.notes) return <span>-</span>;
+
+    return data.notes.split("\n").map((line, i) => (
+      <p key={i} className="mb-2 last:mb-0">{line}</p>
+    ));
+  };
+
   return (
-    <div className="p-10 bg-white text-black w-[794px] min-h-[1123px] font-serif">
+    <div className="p-6 bg-white text-black w-[794px] min-h-[1123px] font-serif">
 
       {/* HEADER */}
-      <div className="border-b-2 border-black pb-4 mb-6 flex justify-between items-start gap-6">
+      <div className="border-b border-black pb-3 mb-4 flex justify-between gap-4">
 
-        {/* LEFT SIDE */}
         <div className="flex-1">
-          <h1 className="text-3xl font-bold tracking-wide">
-            {data.name || "Unnamed Character"}
-          </h1>
+          <h1 className="text-4xl font-bold">{data.name || "Unnamed Character"}</h1>
 
-          <div className="flex flex-wrap gap-6 mt-2 text-lg">
-            <span><strong>{te.species}:</strong> {specieTranslated.name ?? "-"}</span>
+          <div className="flex flex-wrap gap-4 mt-1 text">
+            <span><strong>{te.species}:</strong> {specieTranslated.name}</span>
 
-            {elfSubtypeTranslated && (
-              <span><strong>{te.speciesSubtype}:</strong> {elfSubtypeTranslated.name}</span>
+            {selectedSubtype && (
+              <span><strong>{te.speciesSubtype}:</strong> {elfSubtypeTranslated?.name}</span>
             )}
 
             <span><strong>{te.age}:</strong> {ageTranslated ?? "-"}</span>
             <span><strong>{te.gender}:</strong> {genderTranslated ?? "-"}</span>
-            <div><strong>{te.height}:</strong> {heightTranslated ?? "-"}</div>
-            <div><strong>{te.weight}:</strong> {weightTranslated ?? "-"}</div>
+            <span><strong>{te.height}:</strong> {heightTranslated ?? "-"}</span>
+            <span><strong>{te.weight}:</strong> {weightTranslated ?? "-"}</span>
           </div>
 
-          <div className="flex flex-wrap gap-6 mt-2 text-lg">
-            <span><i>{passiveTranslated}</i></span>
+          <div className="mt-1 italic">
+            {passiveTranslated}
           </div>
         </div>
 
-        {/* IMAGE */}
-        <div className="w-40 h-40 border border-black overflow-hidden flex-shrink-0">
+        <div className="w-28 h-28 border border-black overflow-hidden">
           {imageSrc && (
-            <img
-              src={imageSrc}
-              alt="Character"
-              className="w-full h-full object-cover"
-            />
+            <img src={imageSrc} className="w-full h-full object-cover" />
           )}
         </div>
 
       </div>
 
-      {/* GRID */}
-      <div className="grid grid-cols-2 gap-6">
+      {/* TOP GRID */}
+      <div className="grid grid-cols-2 gap-4">
 
         {/* LEFT */}
-        <div className="space-y-6">
+        <div className="space-y-4">
 
-          {/* HP & MANA */}
-          <div className="border border-black p-4">
-            <h2 className="font-bold text-lg mb-2">{te.hp} & {te.mana}</h2>
-            <div className="text-lg space-y-1">
-              <div><strong>{te.hp}:</strong> {data.hp ?? "0"}/{data.hp ?? "0"}</div>
-              <div><strong>{te.mana}:</strong> {data.mana ?? "0"}/{data.mana ?? "0"}</div>
+          {/* HP + ATTRIBUTES */}
+          <div className="border border-black p-3">
+            <h2 className="font-bold text-2xl mb-2">{ te.attributes }</h2>
+
+            <div className="grid grid-cols-2 mb-2 text-xl">
+              <div><strong>{te.hp}</strong>: {data.hp}/{data.hp}</div>
+              <div><strong>{te.mana}</strong>: {data.mana}/{data.mana}</div>
             </div>
-          </div>
 
-          {/* ATTRIBUTES */}
-          <div className="border border-black p-4">
-            <h2 className="font-bold text-lg mb-2">{te.attributes}</h2>
-
-            <div className="grid grid-cols-2 gap-2 text-lg">
-              {Object.entries(data.attributes || {}).map(([k, v]) => (
-                <div key={k} className="flex flex-col">
-                  <div className="flex justify-left">
-                    <span className="uppercase">{k}:</span>
-                    <span className="font-bold">{v}</span>
-                  </div>
-
-                  <div className="border-b border-dashed border-black ml-12 mt-1"></div>
+            <div className="grid grid-cols-3 gap-1 mt-4">
+              {Object.entries(data.attributes).map(([k, v]) => (
+                <div key={k} className="flex justify-left">
+                  <span>{k}: </span>
+                  <span className="ml-2 font-bold">{v}</span>
                 </div>
               ))}
-            </div>
-          </div>
-
-          {/* WEALTH */}
-          <div className="border border-black p-4">
-            <h2 className="font-bold text-lg mb-2">{te.wealth}</h2>
-
-            <div className="grid grid-cols-2 gap-2 text-lg">
-              <div>{te.copper}: {data.wealth?.copper ?? 0}</div>
-              <div>{te.silver}: {data.wealth?.silver ?? 0}</div>
-              <div>{te.gold}: {data.wealth?.gold ?? 0}</div>
-              <div>{te.platinum}: {data.wealth?.platinum ?? 0}</div>
             </div>
           </div>
 
         </div>
 
         {/* RIGHT */}
-        <div className="space-y-6">
+        <div className="space-y-4">
 
-          {/* TALENTS */}
-          <div className="border border-black p-4">
-            <h2 className="font-bold text-lg mb-2">{te.talents}</h2>
+          {/* TALENTS + WEALTH */}
+          <div className="border border-black p-3">
+            <div className="grid grid-cols-2 gap-4">
 
-            <div className="text-lg space-y-3">
-
-              {/* POSITIVE */}
+              {/* TALENTS */}
               <div>
-                <strong className="text-green-700">{te.positive}</strong>
+                <h2 className="font-bold text-2xl mb-1">{te.talents}</h2>
 
-                {data.positiveTalents?.length ? (
-                  data.positiveTalents
-                    .filter((item) => item && item.id)
-                    .map((item, i) => {
-                      const talent = talentsMap[item.id];
+                <div className="space-y-2">
 
+                  <div>
+                    <strong className="text-green-700">{te.positive}</strong>
+                    {data.positiveTalents.map((t) => {
+                      const talent = talentsMap[t.id];
                       return (
-                        <div key={item.id ?? i}>
-                          + {language === "pt-br"
-                            ? talent?.namePtBr
-                            : talent?.name}
+                        <div key={t.id}>
+                          + {language === "pt-br" ? talent?.namePtBr : talent?.name}
                         </div>
                       );
-                    })
-                ) : (
-                  <div>-</div>
-                )}
-              </div>
+                    })}
+                  </div>
 
-              {/* NEGATIVE */}
-              <div>
-                <strong className="text-red-700">{te.negative}</strong>
-
-                {data.negativeTalents?.length ? (
-                  data.negativeTalents
-                    .filter((item) => item && item.id)
-                    .map((item, i) => {
-                      const talent = talentsMap[item.id];
-
+                  <div>
+                    <strong className="text-red-700">{te.negative}</strong>
+                    {data.negativeTalents.map((t) => {
+                      const talent = talentsMap[t.id];
                       return (
-                        <div key={item.id ?? i}>
-                          - {language === "pt-br"
-                            ? talent?.namePtBr
-                            : talent?.name}
+                        <div key={t.id}>
+                          - {language === "pt-br" ? talent?.namePtBr : talent?.name}
                         </div>
                       );
-                    })
-                ) : (
-                  <div>-</div>
-                )}
+                    })}
+                  </div>
+
+                </div>
               </div>
 
-            </div>
-          </div>
+              {/* WEALTH */}
+              <div>
+                <h2 className="font-bold text-2xl mb-1">{te.wealth}</h2>
 
-          {/* EQUIPMENT */}
-          <div className="border border-black p-4">
-            <h2 className="font-bold text-lg mb-2">{te.equipament}</h2>
+                <div className="space-y-1">
+                  <div><strong>{te.copper}</strong>: {data.wealth.copper}</div>
+                  <div><strong>{te.silver}</strong>: {data.wealth.silver}</div>
+                  <div><strong>{te.gold}</strong>: {data.wealth.gold}</div>
+                  <div><strong>{te.platinum}</strong>: {data.wealth.platinum}</div>
+                </div>
+              </div>
 
-            <div className="text-lg space-y-1">
-              {data.equipment?.length ? (
-                data.equipment.map((e, i) => (
-                  <div key={i}>• {e}</div>
-                ))
-              ) : (
-                <div>-</div>
-              )}
             </div>
           </div>
 
         </div>
       </div>
 
-      {/* NOTES */}
-      <div className="mt-8 border border-black p-4 min-h-[120px]">
-        <h2 className="font-bold text-lg mb-2">{te.notes}</h2>
+      {/* EQUIPMENT FULL WIDTH */}
+      <div className="mt-4 border border-black p-3">
+        <h2 className="font-bold text-2xl mb-2">{te.equipament}</h2>
+
+        <div className="grid grid-cols-3 gap-1">
+          {data.equipment.map((e, i) => (
+            <div key={i}>+ {e}</div>
+          ))}
+        </div>
       </div>
+
+      {/* NOTES */}
+      <div className="mt-4 border border-black p-4 min-h-[500px]">
+        <h2 className="font-bold text-2xl mb-2">{te.notes}</h2>
+
+        <div className="leading-relaxed break-all">
+          {renderNotes()}
+        </div>
+      </div>
+
     </div>
   );
 }
