@@ -23,6 +23,7 @@ type ExportSheetProps = {
       platinum: number;
     };
     equipment: string[];
+    notes: string[];
   };
 };
 
@@ -233,8 +234,9 @@ export function ExportSheet({ data }: ExportSheetProps) {
       </div>
 
       {/* NOTES */}
-      <div className="mt-8 border border-black p-4 min-h-[120px]">
+      <div className="mt-8 border border-black p-4 min-h-[120px] break-words">
         <h2 className="font-bold text-lg mb-2">{te.notes}</h2>
+          {data.notes}
       </div>
     </div>
   );
