@@ -147,6 +147,8 @@ export const en = {
     talentsInfo: "Talents",
     equipmentInfo: "Equipment",
     wealthInfo: "Wealth",
+    notes: "Notes",
+    notesPlaceholder: "Write any aditional detail for your character..."
   },
   validation: {
     required: "This field is required",

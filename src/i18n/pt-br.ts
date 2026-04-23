@@ -147,6 +147,8 @@ export const ptBr = {
     talentsInfo: "Talentos",
     equipmentInfo: "Equipamento",
     wealthInfo: "Riqueza",
+    notes: "Observações",
+    notesPlaceholder: "Escreva aqui qualquer detalhe adicional do personagem..."
   },
   validation: {
     required: "Este campo é obrigatório",
@@ -180,7 +182,7 @@ export const ptBr = {
     positive: "Positivos",
     negative: "Negativos",
     equipament: "Equipamento",
-    notes: "Anotações",
+    notes: "Observações",
     hp: "VIDA",
     mana: "MANA",
   }

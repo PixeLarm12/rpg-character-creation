@@ -1,5 +1,5 @@
 import { useAppContext } from "@/context/AppContext";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { ExportSheet } from "../ExportSheet";
 import { speciesData } from "@/data/species";
 import { talentsData } from "@/data/talents"
@@ -26,11 +26,11 @@ export function SummaryStep() {
     return base;
   };
 
- const passive = subtype
+  const passive = subtype
     ? (language === "pt-br" ? subtype.passivePtBr : subtype.passive)
     : species
-    ? (language === "pt-br" ? species.passivePtBr : species.passive)
-    : "—";
+      ? (language === "pt-br" ? species.passivePtBr : species.passive)
+      : "—";
 
   const posTalents = state.positiveTalents.map((id) => talentsData.find((t) => t.id === id)!);
   const negTalents = state.negativeTalents.map((id) => talentsData.find((t) => t.id === id)!);
@@ -39,6 +39,8 @@ export function SummaryStep() {
     ...(pkg?.items.map((i) => (language === "pt-br" ? i.namePtBr : i.name)) ?? []),
     ...defaultEquipment.map((i) => (language === "pt-br" ? i.namePtBr : i.name)),
   ];
+
+  const [notes, setNotes] = useState("");
 
   const exportData = {
     name: state.name,
@@ -51,16 +53,17 @@ export function SummaryStep() {
     species: species?.id,
     elfSubtype: subtype?.id ?? null,
     attributes: state.attributes,
-    positiveTalents: posTalents, 
-    negativeTalents: negTalents, 
+    positiveTalents: posTalents,
+    negativeTalents: negTalents,
     wealth: { copper: 200, silver: 100, gold: 50, platinum: 0 },
     equipment: allEquipment,
+    notes: notes
   };
 
   const downloadPDF = async () => {
     if (!exportRef.current) return;
 
-    const canvas = await html2canvas(exportRef.current, {scale: 2});
+    const canvas = await html2canvas(exportRef.current, { scale: 2 });
 
     const imgData = canvas.toDataURL("image/png");
 
@@ -114,7 +117,7 @@ export function SummaryStep() {
             <div className="grid grid-cols-2 gap-1 text-lg">
               <span className="text-muted-foreground">{t.attributes.hp} <span className="font-bold text-primary">{state.hp}/{state.hp}</span> </span>
               <span className="text-muted-foreground">{t.attributes.mana} <span className="font-bold text-primary">{state.mana}/{state.mana}</span></span>
-              
+
               {Object.entries(state.attributes).map(([k, v]) => (
                 <div key={k} className="flex justify-between">
                   <span className="text-muted-foreground">{(t.attributes.names as any)[k] ?? k}</span>
@@ -155,6 +158,32 @@ export function SummaryStep() {
               ))}
             </ul>
           </Section>
+        </div>
+
+        <div className="grid mt-4">
+          {/* NOTES */}
+          <div className="space-y-1.5">
+            <label className="text-lg font-display text-primary">{ts.notes}</label>
+            <textarea
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder={ts.notesPlaceholder}
+              className="
+                w-full
+                min-h-[120px]
+                resize-y
+                rounded-md
+                border border-border
+                bg-background
+                p-3
+                text-foreground
+                placeholder:text-muted-foreground
+                focus:outline-none
+                focus:ring-2
+                focus:ring-primary
+              "
+            />
+          </div>
         </div>
       </div>
 
