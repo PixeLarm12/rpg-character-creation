@@ -70,7 +70,9 @@ export const en = {
     selectArchetype: "Select an Archetype",
     hp: "HP",
     mana: "Mana",
-    lifeRule: "Values defined by 3d6 (minimum: 8)",
+    defense: "Defense",
+    lifeRule: "HP/MANA: Values defined by 3d6 (minimum: 8)",
+    defRule: "DEFENSE: Value defined by 1d6 + 2",
     reroll: "Reroll", 
     archetypes: {
       knight: "Knight",
@@ -165,7 +167,8 @@ export const en = {
     selectTalents: "Select exactly 2 positive and 2 negative talents",
     selectEquipment: "Please select an equipment package",
     hp: "Please roll for HP values",
-    mana: "Please roll for Mana values"
+    mana: "Please roll for Mana values",
+    defense: "Please roll for Defense values"
   },
   export: {
     species: "Specie",
@@ -185,9 +188,17 @@ export const en = {
     talents: "Talents",
     positive: "Positive",
     negative: "Negative",
-    equipament: "Equipament",
+    equipament: {
+      title: "Equipped",
+      rightHand: "Right hand",
+      leftHand: "Left hand",
+      ranged: "Ranged",
+      armor: "Armor",
+    },
     notes: "Notes",
     hp: "HP",
     mana: "MANA",
+    defense: "DEF",
+    backpack: "Backpack",
   }
 };

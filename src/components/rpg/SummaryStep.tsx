@@ -1,6 +1,6 @@
 import { useAppContext } from "@/context/AppContext";
 import { useRef, useState } from "react";
-import { ExportSheet } from "../ExportSheet";
+import { FrontSheetPage } from "../sheet/FrontSheetPage";
 import { speciesData } from "@/data/species";
 import { talentsData } from "@/data/talents";
 import { equipmentPackages, defaultEquipment } from "@/data/equipment";
@@ -46,7 +46,7 @@ export function SummaryStep() {
 
   const { attribute, value } = species.attributeBonus;
   const attributeBonusLabel = `+${value} ${attribute}`
-  
+
   if (species?.attributeBonus) {
     if (computedAttributes[attribute] !== undefined) {
       const baseValue = computedAttributes[attribute];
@@ -54,7 +54,7 @@ export function SummaryStep() {
     }
   }
 
-  const exportData = {
+  const frontExportData = {
     name: state.name,
     gender: state.gender,
     weight: state.weight,
@@ -62,6 +62,7 @@ export function SummaryStep() {
     age: state.age,
     hp: state.hp,
     mana: state.mana,
+    defense: state.defense,
     species: species?.id,
     elfSubtype: subtype?.id ?? null,
     attributes: computedAttributes,
@@ -131,7 +132,10 @@ export function SummaryStep() {
             <div className="grid grid-cols-2 gap-1 text-lg">
               <span className="text-muted-foreground">{t.attributes.hp} <span className="font-bold text-primary">{state.hp}/{state.hp}</span> </span>
               <span className="text-muted-foreground">{t.attributes.mana} <span className="font-bold text-primary">{state.mana}/{state.mana}</span></span>
+              <span className="text-muted-foreground">{t.attributes.defense} <span className="font-bold text-primary">{state.defense}/{state.defense}</span></span>
+            </div>
 
+            <div className="grid grid-cols-2 gap-1 text-lg">
               {Object.entries(computedAttributes).map(([k, v]) => (
                 <div key={k} className="flex justify-between">
                   <span className="text-muted-foreground">{(t.attributes.names as any)[k] ?? k}</span>
@@ -204,7 +208,7 @@ export function SummaryStep() {
       {/* EXPORT */}
       <div style={{ position: "absolute", left: "-9999px", top: 0 }}>
         <div ref={exportRef}>
-          <ExportSheet data={exportData} />
+          <FrontSheetPage data={frontExportData} />
         </div>
       </div>
 

@@ -32,6 +32,7 @@ function CharacterCreator() {
       case 2:
         if (!state.hp) { toast.error(t.validation.hp); return false; }
         if (!state.mana) { toast.error(t.validation.mana); return false; }
+        if (!state.defense) { toast.error(t.validation.defense); return false; }
         if (!state.attributeMethod) { toast.error(t.validation.attributeMethod); return false; }
         if (state.attributeMethod === "archetype" && !state.archetypeId) { toast.error(t.validation.distributeAll); return false; }
         return true;
