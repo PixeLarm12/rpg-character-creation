@@ -46,7 +46,7 @@ export function SummaryStep() {
 
   const { attribute, value } = species.attributeBonus;
   const attributeBonusLabel = `+${value} ${attribute}`
-  
+
   if (species?.attributeBonus) {
     if (computedAttributes[attribute] !== undefined) {
       const baseValue = computedAttributes[attribute];
@@ -133,7 +133,9 @@ export function SummaryStep() {
               <span className="text-muted-foreground">{t.attributes.hp} <span className="font-bold text-primary">{state.hp}/{state.hp}</span> </span>
               <span className="text-muted-foreground">{t.attributes.mana} <span className="font-bold text-primary">{state.mana}/{state.mana}</span></span>
               <span className="text-muted-foreground">{t.attributes.defense} <span className="font-bold text-primary">{state.defense}/{state.defense}</span></span>
+            </div>
 
+            <div className="grid grid-cols-2 gap-1 text-lg">
               {Object.entries(computedAttributes).map(([k, v]) => (
                 <div key={k} className="flex justify-between">
                   <span className="text-muted-foreground">{(t.attributes.names as any)[k] ?? k}</span>
