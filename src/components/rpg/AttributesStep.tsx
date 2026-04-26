@@ -5,7 +5,7 @@ import { speciesData } from "@/data/species";
 import { Minus, Plus, Dices } from "lucide-react";
 import { useCallback, useMemo, useEffect } from "react";
 
-const MAIN_ATTRS = ["CHA", "INT", "DEX", "PER", "STR", "RES"] as const;
+const MAIN_ATTRS = ["CHA", "INT", "DEX", "PER", "STR", "RES", "ARC"] as const;
 const FIXED_ATTRS = ["COR", "EXA"] as const;
 
 /** Step 3: Attribute assignment with 3 methods */
@@ -20,9 +20,8 @@ export function AttributesStep() {
   const [rolling, setRolling] = useState(false);
   const [displayHp, setDisplayHp] = useState<number | null>(null);
   const [displayMana, setDisplayMana] = useState<number | null>(null);
+  const [displayDefense, setDisplayDefense] = useState<number | null>(null);
 
-  const hasRolled = state.hp !== null && state.mana !== null;
-  
   const roll3d6 = () =>
     Math.ceil(Math.random() * 6) +
     Math.ceil(Math.random() * 6) +
@@ -36,6 +35,8 @@ export function AttributesStep() {
     return total;
   };
 
+  const roll1d6Plus2 = () => Math.ceil(Math.random() * 6) + 2;
+
   const rollStats = useCallback(() => {
     if (rolling) return;
 
@@ -45,6 +46,7 @@ export function AttributesStep() {
     const interval = setInterval(() => {
       setDisplayHp(Math.max(8, roll3d6()));
       setDisplayMana(Math.max(8, roll3d6()));
+      setDisplayDefense(roll1d6Plus2());
 
       ticks++;
 
@@ -53,14 +55,17 @@ export function AttributesStep() {
 
         const finalHp = roll3d6Min8();
         const finalMana = roll3d6Min8();
+        const finalDefense = roll1d6Plus2();
 
         setDisplayHp(finalHp);
         setDisplayMana(finalMana);
+        setDisplayDefense(finalDefense);
 
         dispatch({
           type: "SET_HP_MANA",
           hp: finalHp,
           mana: finalMana,
+          defense: finalDefense,
         });
 
         setRolling(false);
@@ -93,6 +98,11 @@ export function AttributesStep() {
             <strong>{ta.mana}</strong> {rolling ? displayMana : state.mana ?? "-"}/{state.mana}
           </div>
 
+          <div>
+            <strong>{ta.defense}</strong>{" "}
+            {rolling ? displayDefense : state.defense ?? "-"}
+          </div>
+
           <button
             onClick={rollStats}
             className="ml-auto flex items-center gap-2 rounded-md border border-border px-3 py-1 hover:bg-secondary transition"
@@ -103,7 +113,7 @@ export function AttributesStep() {
         </div>
 
         <p className="text-muted-foreground text-sm">
-          {ta.lifeRule}
+          {ta.lifeRule} | {ta.defRule}
         </p>
       </div>
 
@@ -182,7 +192,7 @@ function PointsMethod() {
     }, 0);
   }, [attrs]);
 
-  const remaining = 10 - pointsUsed;
+  const remaining = 12 - pointsUsed;
 
   const adjust = useCallback(
     (attr: string, dir: number) => {

@@ -9,57 +9,57 @@ export const archetypesData: ArchetypeData[] = [
   {
     id: "knight",
     translationKey: "knight",
-    attributes: { STR: 3, DEX: -1, INT: -2, PER: -1, RES: 3, CHA: 0 },
+    attributes: { STR: 3, DEX: -1, INT: -2, PER: -1, RES: 3, ARC: -2, CHA: 0 },
   },
   {
     id: "druid",
     translationKey: "druid",
-    attributes: { STR: -2, DEX: -1, INT: 2, PER: 3, RES: 0, CHA: -1 },
+    attributes: { STR: -2, DEX: -1, INT: 1, PER: 3, RES: 0, ARC: 1, CHA: -1 },
   },
   {
     id: "bard",
     translationKey: "bard",
-    attributes: { STR: -2, DEX: 0, INT: 1, PER: 1, RES: -2, CHA: 3 },
+    attributes: { STR: -2, DEX: 0, INT: 1, PER: 1, RES: -2, ARC: 0, CHA: 3 },
   },
   {
     id: "paladin",
     translationKey: "paladin",
-    attributes: { STR: 2, DEX: -2, INT: -1, PER: 1, RES: 3, CHA: 1 },
+    attributes: { STR: 2, DEX: -2, INT: -1, PER: 1, RES: 3, ARC: 0, CHA: 1 },
   },
   {
     id: "assassin",
     translationKey: "assassin",
-    attributes: { STR: -1, DEX: 3, INT: 0, PER: 3, RES: -2, CHA: -2 },
+    attributes: { STR: -1, DEX: 3, INT: 0, PER: 3, RES: -2, ARC: -1, CHA: -2 },
   },
   {
     id: "wizard",
     translationKey: "wizard",
-    attributes: { STR: -2, DEX: -1, INT: 3, PER: 2, RES: -2, CHA: -2 },
+    attributes: { STR: -2, DEX: -1, INT: 3, PER: 2, RES: -2, ARC: 2, CHA: -2 },
   },
   {
     id: "monk",
     translationKey: "monk",
-    attributes: { STR: 0, DEX: 2, INT: 0, PER: 2, RES: 2, CHA: -2 },
+    attributes: { STR: 0, DEX: 2, INT: 0, PER: 2, RES: 2, ARC: 0, CHA: -2 },
   },
   {
     id: "artificier",
     translationKey: "artificier",
-    attributes: { STR: -2, DEX: 0, INT: 3, PER: 1, RES: 0, CHA: -2 },
+    attributes: { STR: -2, DEX: 0, INT: 3, PER: 1, RES: 0, ARC: 0, CHA: -2 },
   },
   {
     id: "cleric",
     translationKey: "cleric",
-    attributes: { STR: -1, DEX: -2, INT: 2, PER: 2, RES: 1, CHA: 0 },
+    attributes: { STR: -1, DEX: -2, INT: 2, PER: 2, RES: 1, ARC: 1, CHA: 0 },
   },
   {
     id: "samurai",
     translationKey: "samurai",
-    attributes: { STR: 2, DEX: 2, INT: -2, PER: 1, RES: 2, CHA: -1 },
+    attributes: { STR: 2, DEX: 2, INT: -2, PER: 1, RES: 2, ARC: -2, CHA: -1 },
   },
   {
     id: "shaman",
     translationKey: "shaman",
-    attributes: { STR: -2, DEX: -1, INT: 2, PER: 3, RES: 0, CHA: -2 },
+    attributes: { STR: -2, DEX: -1, INT: 2, PER: 3, RES: 0, ARC: 1, CHA: -2 },
   },
 ];
 

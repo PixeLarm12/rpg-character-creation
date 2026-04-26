@@ -1,6 +1,6 @@
 import { useAppContext } from "@/context/AppContext";
 import { useRef, useState } from "react";
-import { ExportSheet } from "../ExportSheet";
+import { FrontSheetPage } from "../sheet/FrontSheetPage";
 import { speciesData } from "@/data/species";
 import { talentsData } from "@/data/talents"
 import { equipmentPackages, defaultEquipment } from "@/data/equipment";
@@ -42,7 +42,19 @@ export function SummaryStep() {
 
   const [notes, setNotes] = useState("");
 
-  const exportData = {
+  const computedAttributes = { ...state.attributes };
+
+  const { attribute, value } = species.attributeBonus;
+  const attributeBonusLabel = `+${value} ${attribute}`
+
+  if (species?.attributeBonus) {
+    if (computedAttributes[attribute] !== undefined) {
+      const baseValue = computedAttributes[attribute];
+      computedAttributes[attribute] = baseValue + value;
+    }
+  }
+
+  const frontExportData = {
     name: state.name,
     gender: state.gender,
     weight: state.weight,
@@ -50,9 +62,10 @@ export function SummaryStep() {
     age: state.age,
     hp: state.hp,
     mana: state.mana,
+    defense: state.defense,
     species: species?.id,
     elfSubtype: subtype?.id ?? null,
-    attributes: state.attributes,
+    attributes: computedAttributes,
     positiveTalents: posTalents,
     negativeTalents: negTalents,
     wealth: { copper: 200, silver: 100, gold: 50, platinum: 0 },
@@ -105,20 +118,25 @@ export function SummaryStep() {
               <span className="text-muted-foreground">{t.basics.weight}:</span><span>{state.weight ? (t.basics.weights as any)[state.weight] : "—"}</span>
               <span className="text-muted-foreground">{t.basics.height}:</span><span>{state.height ? (t.basics.heights as any)[state.height] : "—"}</span>
               <span className="text-muted-foreground">{t.basics.age}:</span><span>{state.age ? (t.basics.ages as any)[state.age] : "—"}</span>
+              <span className="text-muted-foreground">{t.basics.movement}:</span><span>{species.movement}m</span>
             </div>
           </Section>
 
           <Section title={ts.speciesInfo}>
             <p className="text-lg">{getSpeciesName()}</p>
             <p className=" text-muted-foreground">{passive}</p>
+            <p className=" text-muted-foreground">{attributeBonusLabel}</p>
           </Section>
 
           <Section title={ts.attributesInfo}>
             <div className="grid grid-cols-2 gap-1 text-lg">
               <span className="text-muted-foreground">{t.attributes.hp} <span className="font-bold text-primary">{state.hp}/{state.hp}</span> </span>
               <span className="text-muted-foreground">{t.attributes.mana} <span className="font-bold text-primary">{state.mana}/{state.mana}</span></span>
+              <span className="text-muted-foreground">{t.attributes.defense} <span className="font-bold text-primary">{state.defense}/{state.defense}</span></span>
+            </div>
 
-              {Object.entries(state.attributes).map(([k, v]) => (
+            <div className="grid grid-cols-2 gap-1 text-lg">
+              {Object.entries(computedAttributes).map(([k, v]) => (
                 <div key={k} className="flex justify-between">
                   <span className="text-muted-foreground">{(t.attributes.names as any)[k] ?? k}</span>
                   <span className="font-bold text-primary">{v}</span>
@@ -190,7 +208,7 @@ export function SummaryStep() {
       {/* EXPORT */}
       <div style={{ position: "absolute", left: "-9999px", top: 0 }}>
         <div ref={exportRef}>
-          <ExportSheet data={exportData} />
+          <FrontSheetPage data={frontExportData} />
         </div>
       </div>
 
