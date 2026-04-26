@@ -1,6 +1,6 @@
 import { useAppContext } from "@/context/AppContext";
 import { useRef, useState } from "react";
-import { ExportSheet } from "../ExportSheet";
+import { FrontSheetPage } from "../sheet/FrontSheetPage";
 import { speciesData } from "@/data/species";
 import { talentsData } from "@/data/talents";
 import { equipmentPackages, defaultEquipment } from "@/data/equipment";
@@ -54,7 +54,7 @@ export function SummaryStep() {
     }
   }
 
-  const exportData = {
+  const frontExportData = {
     name: state.name,
     gender: state.gender,
     weight: state.weight,
@@ -204,7 +204,7 @@ export function SummaryStep() {
       {/* EXPORT */}
       <div style={{ position: "absolute", left: "-9999px", top: 0 }}>
         <div ref={exportRef}>
-          <ExportSheet data={exportData} />
+          <FrontSheetPage data={frontExportData} />
         </div>
       </div>
 

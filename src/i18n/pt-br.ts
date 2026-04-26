@@ -71,7 +71,7 @@ export const ptBr = {
     hp: "VIDA",
     mana: "Mana",
     lifeRule: "Valores definidos por 3d6 (mínimo: 8)",
-    reroll: "Rolar", 
+    reroll: "Rolar",
     archetypes: {
       knight: "Cavaleiro",
       druid: "Druída",
@@ -184,9 +184,17 @@ export const ptBr = {
     talents: "Talentos",
     positive: "Positivos",
     negative: "Negativos",
-    equipament: "Equipamento",
+    equipament: {
+      title: "Equipados",
+      rightHand: "Mão direita",
+      leftHand: "Mão esquerda",
+      ranged: "Distância",
+      armor: "Armadura",
+    },
     notes: "Observações",
     hp: "VIDA",
     mana: "MANA",
+    defense: "DEF",
+    backpack: "Mochila",
   }
 };

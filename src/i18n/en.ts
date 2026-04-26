@@ -185,9 +185,17 @@ export const en = {
     talents: "Talents",
     positive: "Positive",
     negative: "Negative",
-    equipament: "Equipament",
+    equipament: {
+      title: "Equipped",
+      rightHand: "Right hand",
+      leftHand: "Left hand",
+      ranged: "Ranged",
+      armor: "Armor",
+    },
     notes: "Notes",
     hp: "HP",
     mana: "MANA",
+    defense: "DEF",
+    backpack: "Backpack",
   }
 };
