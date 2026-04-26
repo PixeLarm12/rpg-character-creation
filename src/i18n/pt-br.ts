@@ -68,9 +68,11 @@ export const ptBr = {
     adjustmentRemaining: "ajuste restante",
     maxReached: "Máximo +3 atingido",
     selectArchetype: "Selecione um Arquétipo",
-    hp: "VIDA",
+    hp: "Vida",
     mana: "Mana",
-    lifeRule: "Valores definidos por 3d6 (mínimo: 8)",
+    defense: "Defesa",
+    lifeRule: "HP/MANA: Valores definidos por 3d6 (mínimo: 8)",
+    defRule: "DEFESA: Valor definido por 1d6 + 2",
     reroll: "Rolar",
     archetypes: {
       knight: "Cavaleiro",

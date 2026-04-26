@@ -62,6 +62,7 @@ export function SummaryStep() {
     age: state.age,
     hp: state.hp,
     mana: state.mana,
+    defense: state.defense,
     species: species?.id,
     elfSubtype: subtype?.id ?? null,
     attributes: computedAttributes,
@@ -131,6 +132,7 @@ export function SummaryStep() {
             <div className="grid grid-cols-2 gap-1 text-lg">
               <span className="text-muted-foreground">{t.attributes.hp} <span className="font-bold text-primary">{state.hp}/{state.hp}</span> </span>
               <span className="text-muted-foreground">{t.attributes.mana} <span className="font-bold text-primary">{state.mana}/{state.mana}</span></span>
+              <span className="text-muted-foreground">{t.attributes.defense} <span className="font-bold text-primary">{state.defense}/{state.defense}</span></span>
 
               {Object.entries(computedAttributes).map(([k, v]) => (
                 <div key={k} className="flex justify-between">

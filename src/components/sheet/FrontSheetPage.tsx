@@ -9,6 +9,7 @@ type FrontSheetProps = {
     age?: number;
     hp?: number;
     mana?: number;
+    defense?: number;
     height?: string;
     weight?: string;
     species?: string;
@@ -124,7 +125,7 @@ export function FrontSheetPage({ data }: FrontSheetProps) {
             <div className="grid grid-cols-2 mb-2 text-xl">
               <div><strong>{te.hp}</strong>: {data.hp}/{data.hp}</div>
               <div><strong>{te.mana}</strong>: {data.mana}/{data.mana}</div>
-              <div><strong>{te.defense}</strong>: 1D6+2 </div>
+              <div><strong>{te.defense}</strong>: {data.defense} </div>
             </div>
 
             <div className="grid grid-cols-3 gap-1 mt-4">
