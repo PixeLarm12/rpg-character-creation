@@ -91,6 +91,7 @@ export const en = {
       PER: "Perception",
       STR: "Strength",
       RES: "Resistance",
+      ARC: "Arcane",
       COR: "Courage",
       EXA: "Exhaustion",
     },

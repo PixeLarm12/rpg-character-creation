@@ -5,7 +5,7 @@ import { speciesData } from "@/data/species";
 import { Minus, Plus, Dices } from "lucide-react";
 import { useCallback, useMemo, useEffect } from "react";
 
-const MAIN_ATTRS = ["CHA", "INT", "DEX", "PER", "STR", "RES"] as const;
+const MAIN_ATTRS = ["CHA", "INT", "DEX", "PER", "STR", "RES", "ARC"] as const;
 const FIXED_ATTRS = ["COR", "EXA"] as const;
 
 /** Step 3: Attribute assignment with 3 methods */
@@ -21,8 +21,6 @@ export function AttributesStep() {
   const [displayHp, setDisplayHp] = useState<number | null>(null);
   const [displayMana, setDisplayMana] = useState<number | null>(null);
 
-  const hasRolled = state.hp !== null && state.mana !== null;
-  
   const roll3d6 = () =>
     Math.ceil(Math.random() * 6) +
     Math.ceil(Math.random() * 6) +
@@ -182,7 +180,7 @@ function PointsMethod() {
     }, 0);
   }, [attrs]);
 
-  const remaining = 10 - pointsUsed;
+  const remaining = 12 - pointsUsed;
 
   const adjust = useCallback(
     (attr: string, dir: number) => {

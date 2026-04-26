@@ -91,6 +91,7 @@ export const ptBr = {
       PER: "Percepção",
       STR: "Força",
       RES: "Resistência",
+      ARC: "Arcano",
       COR: "Coragem",
       EXA: "Exaustão",
     },
