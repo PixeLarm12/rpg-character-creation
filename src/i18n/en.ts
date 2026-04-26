@@ -73,7 +73,7 @@ export const en = {
     defense: "Defense",
     lifeRule: "HP/MANA: Values defined by 3d6 (minimum: 8)",
     defRule: "DEFENSE: Value defined by 1d6 + 2",
-    reroll: "Reroll", 
+    reroll: "Reroll",
     archetypes: {
       knight: "Knight",
       druid: "Druid",
@@ -98,6 +98,20 @@ export const en = {
       COR: "Courage",
       EXA: "Exhaustion",
     },
+    attrDesc: {
+      "CHARISMA [CHA]": "Influences persuasion, presence, and social impact.",
+      "INTELLIGENCE [INT]": "Determines reasoning, memory, and knowledge capacity.",
+      "DEXTERITY [DEX]": "Affects agility, reflexes, and precision of movements.",
+      "PERCEPTION [PER]": "Represents awareness, senses, and attention to detail.",
+      "STRENGTH [STR]": "Measures physical power and brute force.",
+      "RESISTANCE [RES]": "Defines endurance, toughness, and damage resistance.",
+      "ARCANE [ARC]": "Controls affinity and power over magical energies.",
+      "COURAGE [COR]": "Reflects bravery, willpower, and resistance to fear.",
+      "EXHAUSTION [EXA]": "Indicates fatigue level and physical/mental exhaustion.",
+      "HP [HP]": "Represents your total health and ability to withstand damage.",
+      "MANA [MANA]": "Resource spent to cast spells and use magical abilities.",
+      "DEFENSE [DEF]": "Reduces or resists damage taken from incoming attacks.",
+    }
   },
   talents: {
     title: "Select Talents",
