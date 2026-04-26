@@ -95,6 +95,7 @@ export function ExportSheet({ data }: ExportSheetProps) {
             <span><strong>{te.gender}:</strong> {genderTranslated ?? "-"}</span>
             <span><strong>{te.height}:</strong> {heightTranslated ?? "-"}</span>
             <span><strong>{te.weight}:</strong> {weightTranslated ?? "-"}</span>
+            <span><strong>{te.movement}:</strong> {specie.movement ?? 0}m</span>
           </div>
 
           <div className="mt-1 italic">

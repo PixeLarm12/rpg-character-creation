@@ -42,6 +42,18 @@ export function SummaryStep() {
 
   const [notes, setNotes] = useState("");
 
+  const computedAttributes = { ...state.attributes };
+
+  const { attribute, value } = species.attributeBonus;
+  const attributeBonusLabel = `+${value} ${attribute}`
+  
+  if (species?.attributeBonus) {
+    if (computedAttributes[attribute] !== undefined) {
+      const baseValue = computedAttributes[attribute];
+      computedAttributes[attribute] = baseValue + value;
+    }
+  }
+
   const exportData = {
     name: state.name,
     gender: state.gender,
@@ -52,7 +64,7 @@ export function SummaryStep() {
     mana: state.mana,
     species: species?.id,
     elfSubtype: subtype?.id ?? null,
-    attributes: state.attributes,
+    attributes: computedAttributes,
     positiveTalents: posTalents,
     negativeTalents: negTalents,
     wealth: { copper: 200, silver: 100, gold: 50, platinum: 0 },
@@ -105,12 +117,14 @@ export function SummaryStep() {
               <span className="text-muted-foreground">{t.basics.weight}:</span><span>{state.weight ? (t.basics.weights as any)[state.weight] : "—"}</span>
               <span className="text-muted-foreground">{t.basics.height}:</span><span>{state.height ? (t.basics.heights as any)[state.height] : "—"}</span>
               <span className="text-muted-foreground">{t.basics.age}:</span><span>{state.age ? (t.basics.ages as any)[state.age] : "—"}</span>
+              <span className="text-muted-foreground">{t.basics.movement}:</span><span>{species.movement}m</span>
             </div>
           </Section>
 
           <Section title={ts.speciesInfo}>
             <p className="text-lg">{getSpeciesName()}</p>
             <p className=" text-muted-foreground">{passive}</p>
+            <p className=" text-muted-foreground">{attributeBonusLabel}</p>
           </Section>
 
           <Section title={ts.attributesInfo}>
@@ -118,7 +132,7 @@ export function SummaryStep() {
               <span className="text-muted-foreground">{t.attributes.hp} <span className="font-bold text-primary">{state.hp}/{state.hp}</span> </span>
               <span className="text-muted-foreground">{t.attributes.mana} <span className="font-bold text-primary">{state.mana}/{state.mana}</span></span>
 
-              {Object.entries(state.attributes).map(([k, v]) => (
+              {Object.entries(computedAttributes).map(([k, v]) => (
                 <div key={k} className="flex justify-between">
                   <span className="text-muted-foreground">{(t.attributes.names as any)[k] ?? k}</span>
                   <span className="font-bold text-primary">{v}</span>
