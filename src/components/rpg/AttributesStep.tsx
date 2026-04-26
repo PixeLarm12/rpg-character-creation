@@ -83,6 +83,15 @@ export function AttributesStep() {
       <div>
         <h2 className="font-display text-2xl md:text-4xl text-gold-gradient">{ta.title}</h2>
         <p className="mt-1 text-lg text-muted-foreground">{ta.desc}</p>
+
+        <ul className="mt-2">
+          {Object.entries(ta.attrDesc).map(([k, v]) => (
+            <div key={k} className="flex justify-left">
+              <span>{k}:</span>
+              <span className="md:text-lg text-muted-foreground italic ml-2">{v}</span>
+            </div>
+          ))}
+        </ul>
       </div>
 
       {/* HP / MANA */}

@@ -98,6 +98,20 @@ export const ptBr = {
       COR: "Coragem",
       EXA: "Exaustão",
     },
+    attrDesc: {
+      "CARISMA [CHA]": "Influencia persuasão, presença e impacto social.",
+      "INTELIGÊNCIA [INT]": "Determina raciocínio, memória e capacidade de conhecimento.",
+      "DESTREZA [DEX]": "Afeta agilidade, reflexos e precisão dos movimentos.",
+      "PERCEPÇÃO [PER]": "Representa percepção, sentidos e atenção aos detalhes.",
+      "FORÇA [STR]": "Mede força física e poder bruto.",
+      "RESISTÊNCIA [RES]": "Define resistência, vigor e capacidade de suportar dano.",
+      "ARCANO [ARC]": "Controla afinidade e poder sobre energias mágicas.",
+      "CORAGEM [COR]": "Reflete coragem, força de vontade e resistência ao medo.",
+      "EXAUSTÃO [EXA]": "Indica nível de fadiga e exaustão física/mental.",
+      "VIDA [HP]": "Representa sua vida total e capacidade de suportar dano.",
+      "MANA [MANA]": "Recurso gasto para conjurar magias e habilidades mágicas.",
+      "DEFESA [DEF]": "Reduz ou resiste ao dano recebido de ataques.",
+    }
   },
   talents: {
     title: "Selecionar Talentos",
