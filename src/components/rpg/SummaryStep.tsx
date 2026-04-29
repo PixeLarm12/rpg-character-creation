@@ -68,7 +68,7 @@ export function SummaryStep() {
     attributes: computedAttributes,
     positiveTalents: posTalents,
     negativeTalents: negTalents,
-    wealth: { copper: 200, silver: 100, gold: 50, platinum: 0 },
+    wealth: { copper: 1000, silver: 500, gold: 150, platinum: 0 },
     equipment: allEquipment,
     notes: notes
   };
